@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAVILOOP - CV Maker</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #42a5ff;
+}
+
+.container {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 22px;
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0 15px;
+  border: 1px solid #344966;
+  border-radius: 7px;
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+label {
+  color: #b9c9df;
+}
+
+button {
+  padding: 12px 18px;
+  margin: 6px 4px;
+  border: 0;
+  border-radius: 8px;
+  background: #1685e8;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#cvPreview {
+  background: white;
+  color: #222;
+  padding: 30px;
+  margin-top: 25px;
+  border-radius: 8px;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+#cvPreview h2 {
+  color: #1268ae;
+  border-bottom: 2px solid #1685e8;
+  padding-bottom: 7px;
+}
+
+#cvPreview h3 {
+  color: #1268ae;
+  margin-bottom: 5px;
+}
+
+#cvPreview p {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+  h1, .container > h2, .container > label,
+  .container > input, .container > textarea,
+  .container > button, .container > hr {
+    display: none !important;
+  }
+  .container {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: white;
+  }
+  #cvPreview {
+    margin: 0;
+    padding: 20px;
+    border-radius: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h1>RAVILOOP CV Maker</h1>
+
+<div class="container">
+
+<h2>Personal Information</h2>
+
+<label>Full Name</label>
+<input id="name" placeholder="Your Full Name">
+
+<label>Email</label>
+<input id="email" type="email" placeholder="Your Email">
+
+<label>Phone</label>
+<input id="phone" placeholder="Your Phone Number">
+
+<label>Address</label>
+<input id="address" placeholder="Your City, Country">
+
+<label>Professional Summary</label>
+<textarea id="summary" placeholder="Write a short introduction about yourself"></textarea>
+
+<hr>
+
+<h2>Education</h2>
+
+<label>Education Details</label>
+<textarea id="education" placeholder="School, College, Degree, Year"></textarea>
+
+<hr>
+
+<h2>Work Experience</h2>
+
+<label>Work Experience</label>
+<textarea id="experience" placeholder="Company Name, Job Title, Work Details"></textarea>
+
+<hr>
+
+<h2>Skills</h2>
+
+<label>Your Skills</label>
+<textarea id="skills" placeholder="Communication, Computer Skills, Teamwork"></textarea>
+
+<br>
+
+<button onclick="generateCV()">Generate CV</button>
+<button onclick="window.print()">Download CV PDF</button>
+
+<div id="cvPreview">
+
+<h2 id="previewName">Your Name</h2>
+<p id="previewContact">Email | Phone | Address</p>
+
+<h3>Professional Summary</h3>
+<p id="previewSummary">Your summary will appear here.</p>
+
+<h3>Education</h3>
+<p id="previewEducation">Your education will appear here.</p>
+
+<h3>Work Experience</h3>
+<p id="previewExperience">Your experience will appear here.</p>
+
+<h3>Skills</h3>
+<p id="previewSkills">Your skills will appear here.</p>
+
+</div>
+
+</div>
+
+<script>
+
+function generateCV() {
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const address = document.getElementById("address").value.trim();
+
+  if (!name) {
+    alert("Please enter your full name.");
+    return;
+  }
+
+  document.getElementById("previewName").textContent = name;
+
+  document.getElementById("previewContact").textContent =
+    [email, phone, address].filter(Boolean).join(" | ");
+
+  document.getElementById("previewSummary").textContent =
+    document.getElementById("summary").value || "Not provided";
+
+  document.getElementById("previewEducation").textContent =
+    document.getElementById("education").value || "Not provided";
+
+  document.getElementById("previewExperience").textContent =
+    document.getElementById("experience").value || "Not provided";
+
+  document.getElementById("previewSkills").textContent =
+    document.getElementById("skills").value || "Not provided";
+
+  document.getElementById("cvPreview").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+</script>
+
+</body>
+</html>
