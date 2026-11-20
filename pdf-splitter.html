@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RAVILOOP - PDF Splitter</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #42a5ff;
+}
+
+.box {
+  max-width: 500px;
+  margin: 25px auto;
+  padding: 25px;
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+}
+
+input {
+  margin: 15px 0;
+  max-width: 100%;
+}
+
+button {
+  padding: 13px 20px;
+  margin: 8px;
+  background: #1685e8;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#status {
+  color: #42a5ff;
+  overflow-wrap: anywhere;
+}
+</style>
+</head>
+
+<body>
+
+<h1>RAVILOOP PDF Splitter</h1>
+<p>Split your PDF pages easily</p>
+
+<div class="box">
+
+  <h2>Upload PDF</h2>
+
+  <input
+    type="file"
+    id="pdfFile"
+    accept="application/pdf,.pdf"
+  >
+
+  <p id="pageCount">No PDF selected</p>
+
+  <h3>Select Page Range</h3>
+
+  <input
+    type="number"
+    id="startPage"
+    placeholder="Start page"
+    min="1"
+  >
+
+  <input
+    type="number"
+    id="endPage"
+    placeholder="End page"
+    min="1"
+  >
+
+  <br>
+
+  <button onclick="splitPDF()">Split PDF</button>
+
+  <p id="status"></p>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<script>
+
+let selectedPDF = null;
+let totalPages = 0;
+
+document.getElementById("pdfFile").addEventListener("change", async function() {
+
+  const file = this.files[0];
+  const status = document.getElementById("status");
+  const pageCount = document.getElementById("pageCount");
+
+  selectedPDF = null;
+  totalPages = 0;
+
+  if (!file) return;
+
+  try {
+
+    status.textContent = "Reading PDF...";
+
+    const bytes = await file.arrayBuffer();
+
+    selectedPDF = await PDFLib.PDFDocument.load(bytes);
+
+    totalPages = selectedPDF.getPageCount();
+
+    pageCount.textContent = "Total pages: " + totalPages;
+
+    document.getElementById("startPage").value = 1;
+    document.getElementById("endPage").value = totalPages;
+
+    document.getElementById("startPage").max = totalPages;
+    document.getElementById("endPage").max = totalPages;
+
+    status.textContent = "PDF loaded successfully!";
+
+  } catch (error) {
+
+    selectedPDF = null;
+    status.textContent = "Error: " + error.message;
+
+  }
+
+});
+
+async function splitPDF() {
+
+  const status = document.getElementById("status");
+
+  if (!selectedPDF) {
+    status.textContent = "Please upload a valid PDF first.";
+    return;
+  }
+
+  const start = Number(document.getElementById("startPage").value);
+  const end = Number(document.getElementById("endPage").value);
+
+  if (
+    !Number.isInteger(start) ||
+    !Number.isInteger(end) ||
+    start < 1 ||
+    end > totalPages ||
+    start > end
+  ) {
+    status.textContent = "Please enter a valid page range.";
+    return;
+  }
+
+  try {
+
+    status.textContent = "Splitting PDF...";
+
+    const newPDF = await PDFLib.PDFDocument.create();
+
+    const pageIndexes = [];
+
+    for (let i = start - 1; i < end; i++) {
+      pageIndexes.push(i);
+    }
+
+    const pages = await newPDF.copyPages(selectedPDF, pageIndexes);
+
+    pages.forEach(page => newPDF.addPage(page));
+
+    const result = await newPDF.save();
+
+    const blob = new Blob(
+      [result],
+      { type: "application/pdf" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "raviloop-split.pdf";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    status.textContent = "PDF split successfully!";
+
+  } catch (error) {
+
+    status.textContent = "Error: " + error.message;
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
