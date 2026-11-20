@@ -1,49 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>RAVILOOP - Smart Online Tools</title>
+
+<meta name="description" content="Discover simple, powerful and free online tools with RAVILOOP.">
+
 <style>
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
 }
+
 header {
   padding: 22px;
   text-align: center;
   border-bottom: 1px solid #1e2b46;
 }
+
 .logo {
   font-size: 30px;
   font-weight: bold;
   color: #42a5ff;
 }
+
 .hero {
   text-align: center;
   padding: 65px 20px;
 }
+
 .hero h1 {
   font-size: 36px;
   margin-bottom: 15px;
 }
+
 .hero span {
   color: #42a5ff;
 }
+
 .hero p {
   color: #aab6ce;
   line-height: 1.7;
 }
+
 .search {
   margin: 25px auto;
   max-width: 450px;
 }
+
 .search input {
   width: 100%;
   padding: 16px;
@@ -53,46 +68,70 @@ header {
   color: white;
   font-size: 16px;
 }
+
 .tools {
   padding: 20px;
   max-width: 950px;
   margin: auto;
 }
+
 .tools h2 {
   margin-bottom: 22px;
 }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
   gap: 15px;
 }
+
 .card {
   background: #111b30;
   border: 1px solid #263957;
   padding: 25px 12px;
   border-radius: 15px;
   text-align: center;
+  display: block;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
 }
+
+.card:hover {
+  border-color: #42a5ff;
+  transform: translateY(-4px);
+}
+
 .card .emoji {
   font-size: 32px;
   margin-bottom: 12px;
 }
+
 .card h3 {
   font-size: 16px;
 }
+
 .card p {
   font-size: 12px;
   color: #aab6ce;
   margin-top: 8px;
 }
+
+.coming {
+  opacity: 0.65;
+  cursor: default;
+}
+
 footer {
   text-align: center;
   padding: 35px 15px;
   color: #8290aa;
   margin-top: 50px;
 }
+
 </style>
 </head>
+
 <body>
 
 <header>
@@ -100,47 +139,69 @@ footer {
 </header>
 
 <section class="hero">
-  <h1>Smart Tools.<br><span>Infinite Possibilities.</span></h1>
-  <p>Discover simple, powerful and free online tools.</p>
+
+  <h1>
+    Smart Tools.<br>
+    <span>Infinite Possibilities.</span>
+  </h1>
+
+  <p>
+    Discover simple, powerful and free online tools.
+  </p>
+
   <div class="search">
-    <input type="search" placeholder="Search your favorite tool...">
+    <input
+      type="search"
+      placeholder="Search your favorite tool..."
+    >
   </div>
+
 </section>
 
 <section class="tools">
+
   <h2>Explore Our Tools</h2>
+
   <div class="grid">
-    <div class="card">
+
+    <a href="qr-generator.html" class="card">
       <div class="emoji">📱</div>
       <h3>QR Generator</h3>
       <p>Create QR codes easily</p>
-    </div>
-    <div class="card">
+    </a>
+
+    <div class="card coming">
       <div class="emoji">🖼️</div>
       <h3>Image Tools</h3>
-      <p>Image utilities</p>
+      <p>Coming Soon</p>
     </div>
-    <div class="card">
+
+    <div class="card coming">
       <div class="emoji">📄</div>
       <h3>PDF Tools</h3>
-      <p>Manage PDF files</p>
+      <p>Coming Soon</p>
     </div>
-    <div class="card">
+
+    <div class="card coming">
       <div class="emoji">🔐</div>
       <h3>Password Generator</h3>
-      <p>Create strong passwords</p>
+      <p>Coming Soon</p>
     </div>
-    <div class="card">
+
+    <div class="card coming">
       <div class="emoji">🧾</div>
       <h3>Invoice Maker</h3>
-      <p>Create invoices</p>
+      <p>Coming Soon</p>
     </div>
-    <div class="card">
+
+    <div class="card coming">
       <div class="emoji">📝</div>
       <h3>CV Maker</h3>
-      <p>Build your CV</p>
+      <p>Coming Soon</p>
     </div>
+
   </div>
+
 </section>
 
 <footer>
