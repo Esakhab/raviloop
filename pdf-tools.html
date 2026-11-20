@@ -4,10 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>RAVILOOP - PDF Tools</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -18,7 +21,9 @@ body {
   text-align: center;
 }
 
-h1 { color: #42a5ff; }
+h1 {
+  color: #42a5ff;
+}
 
 .box {
   max-width: 500px;
@@ -37,11 +42,18 @@ button {
   border: 0;
   border-radius: 8px;
   font-size: 15px;
+  cursor: pointer;
 }
 
-input { margin: 15px 0; }
+input {
+  margin: 15px 0;
+  max-width: 100%;
+}
 
-#status { color: #42a5ff; }
+#status {
+  color: #42a5ff;
+  overflow-wrap: anywhere;
+}
 </style>
 </head>
 
@@ -51,20 +63,32 @@ input { margin: 15px 0; }
 <p>Simple and free PDF tools</p>
 
 <div class="box">
+
   <h2>Merge PDF Files</h2>
+
   <p>Select multiple PDF files to combine them.</p>
 
-  <input type="file" id="files" accept="application/pdf" multiple>
+  <input
+    type="file"
+    id="files"
+    accept="application/pdf,.pdf"
+    multiple
+  >
+
   <br>
+
   <button onclick="mergePDF()">Merge PDFs</button>
 
   <p id="status"></p>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
 <script>
+
 async function mergePDF() {
+
   const files = document.getElementById("files").files;
   const status = document.getElementById("status");
 
@@ -73,34 +97,66 @@ async function mergePDF() {
     return;
   }
 
+  if (typeof PDFLib === "undefined") {
+    status.textContent = "PDF library could not load. Check your internet connection.";
+    return;
+  }
+
   try {
+
     status.textContent = "Merging PDFs...";
 
-    const merged = await PDFLib.PDFDocument.create();
+    const mergedPDF = await PDFLib.PDFDocument.create();
 
     for (const file of files) {
-      const bytes = await file.arrayBuffer();
-      const pdf = await PDFLib.PDFDocument.load(bytes);
-      const pages = await merged.copyPages(pdf, pdf.getPageIndices());
 
-      pages.forEach(page => merged.addPage(page));
+      const bytes = await file.arrayBuffer();
+
+      const pdf = await PDFLib.PDFDocument.load(bytes);
+
+      const pages = await mergedPDF.copyPages(
+        pdf,
+        pdf.getPageIndices()
+      );
+
+      pages.forEach(page => {
+        mergedPDF.addPage(page);
+      });
+
     }
 
-    const result = await merged.save();
-    const blob = new Blob([result], { type: "application/pdf" });
+    const result = await mergedPDF.save();
+
+    const blob = new Blob(
+      [result],
+      { type: "application/pdf" }
+    );
+
     const url = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
+
     link.href = url;
     link.download = "raviloop-merged.pdf";
-    link.click();
 
-    URL.revokeObjectURL(url);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 1000);
+
     status.textContent = "PDF merged successfully!";
+
   } catch (error) {
-    status.textContent = "Error: Could not merge these PDFs.";
+
+    status.textContent = "Error: " + error.message;
+
   }
+
 }
+
 </script>
 
 </body>
