@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAVILOOP - Invoice Maker</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #42a5ff;
+}
+
+.container {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 22px;
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0 15px;
+  border: 1px solid #344966;
+  border-radius: 7px;
+  background: #080d1b;
+  color: white;
+}
+
+label {
+  color: #b9c9df;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 8px;
+}
+
+button {
+  padding: 12px 18px;
+  margin: 6px 4px;
+  border: 0;
+  border-radius: 8px;
+  background: #1685e8;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.remove {
+  background: #d93636;
+}
+
+#total {
+  text-align: right;
+  font-size: 23px;
+  color: #42a5ff;
+  font-weight: bold;
+}
+
+@media(max-width: 500px) {
+  .item {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .container {
+    background: white;
+    color: black;
+    border: none;
+  }
+  input, textarea {
+    color: black;
+    background: white;
+    border: 1px solid #aaa;
+  }
+  button {
+    display: none;
+  }
+  label {
+    color: black;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h1>RAVILOOP Invoice Maker</h1>
+
+<div class="container">
+
+<h2>Business Details</h2>
+
+<label>Business Name</label>
+<input id="business" placeholder="Your Business Name">
+
+<label>Business Address</label>
+<textarea id="address" placeholder="Business Address"></textarea>
+
+<h2>Customer Details</h2>
+
+<label>Customer Name</label>
+<input id="customer" placeholder="Customer Name">
+
+<label>Invoice Number</label>
+<input id="invoice" placeholder="INV-001">
+
+<label>Invoice Date</label>
+<input type="date" id="date">
+
+<h2>Products / Services</h2>
+
+<div id="items">
+
+<div class="item">
+<input class="product" placeholder="Product Name">
+<input class="qty" type="number" min="1" value="1" placeholder="Quantity">
+<input class="price" type="number" min="0" step="0.01" value="0" placeholder="Price">
+</div>
+
+</div>
+
+<button onclick="addItem()">+ Add Item</button>
+
+<h2 id="total">Total: 0.00</h2>
+
+<label>Currency</label>
+<select id="currency">
+<option value="SAR">SAR</option>
+<option value="USD">USD</option>
+<option value="PKR">PKR</option>
+<option value="EUR">EUR</option>
+</select>
+
+<br><br>
+
+<button onclick="calculate()">Calculate Total</button>
+<button onclick="window.print()">Download / Save PDF</button>
+
+<p id="status"></p>
+
+</div>
+
+<script>
+
+function addItem() {
+  const div = document.createElement("div");
+  div.className = "item";
+
+  div.innerHTML = `
+    <input class="product" placeholder="Product Name">
+    <input class="qty" type="number" min="1" value="1" placeholder="Quantity">
+    <input class="price" type="number" min="0" step="0.01" value="0" placeholder="Price">
+    <button class="remove" onclick="this.parentElement.remove(); calculate();">Remove Item</button>
+  `;
+
+  document.getElementById("items").appendChild(div);
+  calculate();
+}
+
+function calculate() {
+
+  let total = 0;
+
+  const rows = document.querySelectorAll("#items .item");
+
+  rows.forEach(row => {
+    const qty = Number(row.querySelector(".qty").value) || 0;
+    const price = Number(row.querySelector(".price").value) || 0;
+
+    total += qty * price;
+  });
+
+  const currency = document.getElementById("currency").value;
+
+  document.getElementById("total").textContent =
+    "Total: " + total.toFixed(2) + " " + currency;
+
+  document.getElementById("status").textContent = "";
+}
+
+document.getElementById("items").addEventListener("input", calculate);
+document.getElementById("currency").addEventListener("change", calculate);
+
+document.getElementById("date").value =
+  new Date().toISOString().split("T")[0];
+
+</script>
+
+</body>
+</html>
