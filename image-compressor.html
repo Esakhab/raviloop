@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RAVILOOP - Image Compressor</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 25px 15px;
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #42a5ff;
+  margin-top: 30px;
+  font-size: 30px;
+}
+
+.container {
+  max-width: 450px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 18px;
+}
+
+.upload-box {
+  padding: 25px 10px;
+  border: 2px dashed #42a5ff;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+input[type="file"] {
+  max-width: 100%;
+  color: white;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin: 15px 0;
+}
+
+button {
+  background: #1685ff;
+  color: white;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 9px;
+  margin: 10px 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #086bd5;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+#preview {
+  display: none;
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  margin-top: 20px;
+  border-radius: 10px;
+  background: #080d1b;
+}
+
+.info {
+  color: #aebbd0;
+  font-size: 14px;
+}
+
+#result {
+  margin-top: 20px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+#message {
+  color: #42a5ff;
+}
+
+#download {
+  display: none;
+  background: #13a66b;
+}
+
+footer {
+  color: #aebbd0;
+  margin-top: 40px;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>RAVILOOP</h1>
+<p>Smart Tools. Infinite Possibilities.</p>
+
+<div class="container">
+
+<h2>Image Compressor</h2>
+
+<p class="info">
+Reduce your image size easily and quickly.
+</p>
+
+<div class="upload-box">
+  <p>📷 Select Your Image</p>
+  <input type="file" id="upload" accept="image/*">
+</div>
+
+<p>Image Quality</p>
+
+<input type="range" id="quality"
+min="10" max="100" value="70">
+
+<p id="qualityValue">70%</p>
+
+<button id="compress" onclick="compressImage()">
+Compress Image
+</button>
+
+<img id="preview" alt="Compressed image preview">
+
+<div id="result"></div>
+
+<p id="message"></p>
+
+<button id="download" onclick="downloadImage()">
+Download Compressed Image
+</button>
+
+</div>
+
+<footer>
+© 2026 RAVILOOP. All rights reserved.
+</footer>
+
+<script>
+
+let compressedBlob = null;
+let originalFile = null;
+let previewUrl = null;
+
+const upload = document.getElementById("upload");
+const quality = document.getElementById("quality");
+const preview = document.getElementById("preview");
+const result = document.getElementById("result");
+const message = document.getElementById("message");
+const download = document.getElementById("download");
+
+quality.addEventListener("input", function() {
+  document.getElementById("qualityValue").innerText =
+    this.value + "%";
+});
+
+upload.addEventListener("change", function() {
+  originalFile = this.files[0] || null;
+  compressedBlob = null;
+
+  if (previewUrl) {
+    URL.revokeObjectURL(previewUrl);
+    previewUrl = null;
+  }
+
+  preview.style.display = "none";
+  download.style.display = "none";
+  result.innerText = "";
+
+  if (originalFile) {
+    message.innerText =
+      "Selected: " + originalFile.name;
+  } else {
+    message.innerText = "";
+  }
+});
+
+function compressImage() {
+
+  const file = originalFile;
+
+  if (!file) {
+    message.innerText = "Please select an image first!";
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    message.innerText = "Please select a valid image!";
+    return;
+  }
+
+  message.innerText = "Compressing image...";
+  result.innerText = "";
+  download.style.display = "none";
+
+  const reader = new FileReader();
+
+  reader.onerror = function() {
+    message.innerText = "Could not read image.";
+  };
+
+  reader.onload = function(event) {
+
+    const img = new Image();
+
+    img.onerror = function() {
+      message.innerText = "Image could not be opened.";
+    };
+
+    img.onload = function() {
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const maxSize = 2000;
+
+      const scale = Math.min(
+        1,
+        maxSize / Math.max(img.width, img.height)
+      );
+
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      const imageQuality =
+        Number(quality.value) / 100;
+
+      canvas.toBlob(function(blob) {
+
+        if (!blob) {
+          message.innerText = "Compression failed!";
+          return;
+        }
+
+        compressedBlob = blob;
+
+        if (previewUrl) {
+          URL.revokeObjectURL(previewUrl);
+        }
+
+        previewUrl = URL.createObjectURL(blob);
+
+        preview.src = previewUrl;
+        preview.style.display = "block";
+
+        const oldSize =
+          (file.size / 1024).toFixed(2);
+
+        const newSize =
+          (blob.size / 1024).toFixed(2);
+
+        const saved =
+          ((file.size - blob.size) / file.size * 100).toFixed(1);
+
+        result.innerHTML =
+          "<strong>Original Size:</strong> " +
+          oldSize + " KB<br>" +
+          "<strong>Compressed Size:</strong> " +
+          newSize + " KB<br>" +
+          "<strong>Size Change:</strong> " +
+          saved + "%";
+
+        message.innerText =
+          blob.size < file.size
+          ? "Image compressed successfully!"
+          : "Image converted, but size did not decrease.";
+
+        download.style.display = "inline-block";
+
+      }, "image/jpeg", imageQuality);
+
+    };
+
+    img.src = event.target.result;
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function downloadImage() {
+
+  if (!compressedBlob) {
+    message.innerText = "Compress an image first!";
+    return;
+  }
+
+  const url = URL.createObjectURL(compressedBlob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "raviloop-compressed.jpg";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+  message.innerText = "Download started!";
+}
+
+</script>
+
+</body>
+</html>
