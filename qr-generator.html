@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAVILOOP QR Generator</title>
+
+<style>
+body {
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 25px 15px;
+}
+h1 {
+  color: #42a5ff;
+  margin-top: 35px;
+}
+p {
+  color: #aab6ce;
+}
+.container {
+  max-width: 420px;
+  margin: 35px auto;
+  background: #111b30;
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid #263957;
+}
+input {
+  width: 90%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #304263;
+  background: #080d1b;
+  color: white;
+  font-size: 16px;
+}
+button {
+  background: #1685ff;
+  color: white;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 9px;
+  margin: 15px 5px;
+  font-size: 15px;
+}
+#qrcode {
+  background: white;
+  padding: 15px;
+  width: fit-content;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>RAVILOOP</h1>
+<p>Free QR Code Generator</p>
+
+<div class="container">
+  <h2>Create Your QR Code</h2>
+
+  <input id="text" type="text"
+  placeholder="Enter text or website URL">
+
+  <br>
+
+  <button onclick="generateQR()">
+    Generate QR
+  </button>
+
+  <div id="qrcode"></div>
+
+  <button id="download" onclick="downloadQR()" hidden>
+    Download QR
+  </button>
+
+  <p id="message"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+function generateQR() {
+  const text = document.getElementById("text").value.trim();
+  const qr = document.getElementById("qrcode");
+  const message = document.getElementById("message");
+
+  if (text === "") {
+    message.innerText = "Please enter some text!";
+    return;
+  }
+
+  if (typeof QRCode === "undefined") {
+    message.innerText = "QR library failed to load. Check internet.";
+    return;
+  }
+
+  qr.innerHTML = "";
+
+  new QRCode(qr, {
+    text: text,
+    width: 200,
+    height: 200,
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  document.getElementById("download").hidden = false;
+  message.innerText = "Your QR code is ready!";
+}
+
+function downloadQR() {
+  const qr = document.getElementById("qrcode");
+  const canvas = qr.querySelector("canvas");
+
+  if (!canvas) return;
+
+  const link = document.createElement("a");
+  link.download = "raviloop-qr.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+</script>
+
+</body>
+</html>
