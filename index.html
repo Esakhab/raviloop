@@ -7,17 +7,13 @@
 
 <title>RAVILOOP - Smart Online Tools</title>
 
-<meta name="description" content="Discover simple, powerful and free online tools with RAVILOOP.">
-
 <style>
-
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
+  margin: 0;
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
@@ -26,18 +22,19 @@ body {
 header {
   padding: 22px;
   text-align: center;
-  border-bottom: 1px solid #1e2b46;
+  border-bottom: 1px solid #263957;
 }
 
 .logo {
-  font-size: 30px;
-  font-weight: bold;
   color: #42a5ff;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .hero {
   text-align: center;
-  padding: 65px 20px;
+  padding: 65px 15px 45px;
 }
 
 .hero h1 {
@@ -45,44 +42,46 @@ header {
   margin-bottom: 15px;
 }
 
-.hero span {
+.hero h1 span {
   color: #42a5ff;
 }
 
 .hero p {
-  color: #aab6ce;
-  line-height: 1.7;
+  color: #b8c5d9;
+  font-size: 16px;
 }
 
 .search {
-  margin: 25px auto;
   max-width: 450px;
+  margin: 30px auto 0;
 }
 
 .search input {
   width: 100%;
-  padding: 16px;
-  border-radius: 12px;
+  padding: 15px;
+  border-radius: 10px;
   border: 1px solid #304263;
   background: #111b30;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
+  outline: none;
 }
 
 .tools {
-  padding: 20px;
   max-width: 950px;
   margin: auto;
+  padding: 20px;
 }
 
 .tools h2 {
-  margin-bottom: 22px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 18px;
 }
 
 .card {
@@ -102,19 +101,19 @@ header {
   transform: translateY(-4px);
 }
 
-.card .emoji {
-  font-size: 32px;
+.emoji {
+  font-size: 35px;
   margin-bottom: 12px;
 }
 
 .card h3 {
-  font-size: 16px;
+  font-size: 17px;
+  margin: 10px 0;
 }
 
 .card p {
-  font-size: 12px;
-  color: #aab6ce;
-  margin-top: 8px;
+  color: #aebbd0;
+  font-size: 13px;
 }
 
 .coming {
@@ -124,11 +123,12 @@ header {
 
 footer {
   text-align: center;
-  padding: 35px 15px;
-  color: #8290aa;
+  padding: 30px 15px;
   margin-top: 50px;
+  border-top: 1px solid #263957;
+  color: #aebbd0;
+  font-size: 13px;
 }
-
 </style>
 </head>
 
@@ -160,16 +160,25 @@ footer {
 
 <section class="tools">
 
-  <h2>Explore Our Tools</h2>ll
+  <h2>Explore Our Tools</h2>
 
   <div class="grid">
 
+    <!-- QR GENERATOR -->
     <a href="https://esakhab.github.io/raviloop/qr-generator.html" class="card">
       <div class="emoji">📱</div>
       <h3>QR Generator</h3>
       <p>Create QR codes easily</p>
     </a>
 
+    <!-- PASSWORD GENERATOR -->
+    <a href="https://esakhab.github.io/raviloop/password-generator.html" class="card">
+      <div class="emoji">🔐</div>
+      <h3>Password Generator</h3>
+      <p>Create strong passwords</p>
+    </a>
+
+    <!-- COMING SOON TOOLS -->
     <div class="card coming">
       <div class="emoji">🖼️</div>
       <h3>Image Tools</h3>
@@ -183,23 +192,13 @@ footer {
     </div>
 
     <div class="card coming">
-      <div class="emoji">🔐</div>
-      <a href="https://esakhab.github.io/raviloop/password-generator.html" class="card">
-  <div class="emoji">🔐</div>
-  <h3>Password Generator</h3>
-  <p>Create strong passwords</p>
-      </a>
-      <p>Coming Soon</p>
-    </div>
-
-    <div class="card coming">
       <div class="emoji">🧾</div>
       <h3>Invoice Maker</h3>
       <p>Coming Soon</p>
     </div>
 
     <div class="card coming">
-      <div class="emoji">📝</div>
+      <div class="emoji">📋</div>
       <h3>CV Maker</h3>
       <p>Coming Soon</p>
     </div>
