@@ -1,53 +1,15 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/about.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/contact.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/privacy.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/terms.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/qr-generator.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/password-generator.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/image-compressor.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/pdf-tools.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/pdf-splitter.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/invoice-maker.html</loc>
-  </url>
-
-  <url>
-    <loc>https://esakhab.github.io/raviloop/cv-maker.html</loc>
-  </url>
-
+  <url><loc>https://esakhab.github.io/raviloop/</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/about.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/contact.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/privacy.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/terms.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/qr-generator.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/password-generator.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/image-compressor.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/pdf-tools.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/pdf-splitter.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/invoice-maker.html</loc></url>
+  <url><loc>https://esakhab.github.io/raviloop/cv-maker.html</loc></url>
 </urlset>
