@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAVILOOP - PDF Tools</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 { color: #42a5ff; }
+
+.box {
+  max-width: 500px;
+  margin: 25px auto;
+  padding: 25px;
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+}
+
+button {
+  padding: 13px 20px;
+  margin: 8px;
+  background: #1685e8;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+input { margin: 15px 0; }
+
+#status { color: #42a5ff; }
+</style>
+</head>
+
+<body>
+
+<h1>RAVILOOP PDF Tools</h1>
+<p>Simple and free PDF tools</p>
+
+<div class="box">
+  <h2>Merge PDF Files</h2>
+  <p>Select multiple PDF files to combine them.</p>
+
+  <input type="file" id="files" accept="application/pdf" multiple>
+  <br>
+  <button onclick="mergePDF()">Merge PDFs</button>
+
+  <p id="status"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<script>
+async function mergePDF() {
+  const files = document.getElementById("files").files;
+  const status = document.getElementById("status");
+
+  if (files.length < 2) {
+    status.textContent = "Please select at least 2 PDF files.";
+    return;
+  }
+
+  try {
+    status.textContent = "Merging PDFs...";
+
+    const merged = await PDFLib.PDFDocument.create();
+
+    for (const file of files) {
+      const bytes = await file.arrayBuffer();
+      const pdf = await PDFLib.PDFDocument.load(bytes);
+      const pages = await merged.copyPages(pdf, pdf.getPageIndices());
+
+      pages.forEach(page => merged.addPage(page));
+    }
+
+    const result = await merged.save();
+    const blob = new Blob([result], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "raviloop-merged.pdf";
+    link.click();
+
+    URL.revokeObjectURL(url);
+    status.textContent = "PDF merged successfully!";
+  } catch (error) {
+    status.textContent = "Error: Could not merge these PDFs.";
+  }
+}
+</script>
+
+</body>
+</html>
