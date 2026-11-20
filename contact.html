@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - RAVILOOP</title>
+<meta name="description" content="Contact RAVILOOP for questions, feedback and support.">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #080d1b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 22px;
+  text-align: center;
+  border-bottom: 1px solid #263957;
+}
+
+.logo {
+  color: #42a5ff;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.container {
+  max-width: 650px;
+  margin: 45px auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #42a5ff;
+  text-align: center;
+}
+
+.box {
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 25px;
+}
+
+label {
+  display: block;
+  margin: 15px 0 7px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #304263;
+  border-radius: 8px;
+  background: #080d1b;
+  color: white;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 8px;
+  background: #1677d2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #268ce8;
+}
+
+.home {
+  display: inline-block;
+  margin-top: 25px;
+  color: #42a5ff;
+  text-decoration: none;
+}
+
+.note {
+  color: #aebbd0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #aebbd0;
+  border-top: 1px solid #263957;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">RAVILOOP</div>
+</header>
+
+<main class="container">
+
+<h1>Contact Us</h1>
+
+<div class="box">
+
+  <h2>We'd Love to Hear From You!</h2>
+
+  <p>
+    Have a question, suggestion or feedback?
+    Send us a message using the form below.
+  </p>
+
+  <form id="contactForm">
+
+    <label for="name">Your Name</label>
+    <input type="text" id="name" placeholder="Enter your name" required>
+
+    <label for="email">Your Email</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
+
+    <label for="message">Your Message</label>
+    <textarea id="message" placeholder="Write your message..." required></textarea>
+
+    <button type="submit">Prepare Email</button>
+
+  </form>
+
+  <p class="note">
+    This form opens your email application with a prepared message.
+    It does not send or store messages automatically.
+  </p>
+
+</div>
+
+<a class="home" href="index.html">← Back to Home</a>
+
+</main>
+
+<footer>
+  © 2026 RAVILOOP. All rights reserved.
+</footer>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  const subject = encodeURIComponent("RAVILOOP Contact Message");
+  const body = encodeURIComponent(
+    "Name: " + name +
+    "\nEmail: " + email +
+    "\n\nMessage:\n" + message
+  );
+
+  window.location.href =
+    "mailto:?subject=" + subject + "&body=" + body;
+});
+</script>
+
+</body>
+</html>
