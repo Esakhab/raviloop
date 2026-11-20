@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,12 +57,15 @@ button {
 
 #qrcode {
   background: white;
-  padding: 15px;
+  padding: 20px;
   width: fit-content;
   margin: 20px auto;
   border-radius: 10px;
 }
 
+#qrcode:empty {
+  display: none;
+}
 </style>
 </head>
 
@@ -75,9 +79,9 @@ button {
 <h2>Create Your QR Code</h2>
 
 <input
-id="text"
-type="text"
-placeholder="Enter text or website URL"
+  id="text"
+  type="text"
+  placeholder="Enter text or website URL"
 >
 
 <br>
@@ -102,47 +106,63 @@ Download QR
 
 function generateQR() {
 
-  const text = document.getElementById("text").value.trim();
+  const text = document.getElementById("text").value;
   const qr = document.getElementById("qrcode");
   const message = document.getElementById("message");
+  const download = document.getElementById("download");
 
-  if (text === "") {
+  if (text.trim() === "") {
     message.innerText = "Please enter some text!";
     return;
   }
 
   if (typeof QRCode === "undefined") {
-    message.innerText = "QR library failed to load. Check internet.";
+    message.innerText = "QR library failed to load!";
     return;
   }
 
   qr.innerHTML = "";
+  download.hidden = true;
 
   new QRCode(qr, {
     text: text,
-    width: 200,
-    height: 200,
+    width: 240,
+    height: 240,
     correctLevel: QRCode.CorrectLevel.H
   });
 
-  document.getElementById("download").hidden = false;
-
+  download.hidden = false;
   message.innerText = "Your QR code is ready!";
 }
 
 function downloadQR() {
 
   const qr = document.getElementById("qrcode");
-  const canvas = qr.querySelector("canvas");
+  const original = qr.querySelector("canvas");
+  const message = document.getElementById("message");
 
-  if (!canvas) return;
+  if (!original) {
+    message.innerText = "Generate QR code first!";
+    return;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 320;
+  canvas.height = 320;
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, 320, 320);
+
+  ctx.drawImage(original, 40, 40, 240, 240);
 
   const link = document.createElement("a");
-
   link.download = "raviloop-qr.png";
   link.href = canvas.toDataURL("image/png");
-
   link.click();
+
+  message.innerText = "QR downloaded successfully!";
 }
 
 </script>
