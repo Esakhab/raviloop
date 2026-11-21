@@ -4,10 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RAVILOOP - Smart Online Tools</title>
-<meta name="description" content="Discover simple and useful free online tools at RAVILOOP.">
+<title>RAVILOOP - Free Online Tools</title>
+<meta name="description" content="Discover free and easy online tools with RAVILOOP. Generate QR codes and passwords, compress images, split PDFs, create invoices and CVs.">
 
 <meta name="google-site-verification" content="iIGW86tootzd8sDoCmaAqyefGLJKvCC_tt35PH3kuGI" />
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DXG33MPZF6');
+</script>
 
 <style>
 * {
@@ -69,10 +78,6 @@ header {
   outline: none;
 }
 
-.search input:focus {
-  border-color: #42a5ff;
-}
-
 .tools {
   max-width: 950px;
   margin: auto;
@@ -122,7 +127,7 @@ header {
   font-size: 13px;
 }
 
-.no-results {
+#noResults {
   display: none;
   text-align: center;
   color: #b8c5d9;
@@ -141,16 +146,21 @@ footer {
 footer a {
   color: #42a5ff;
   text-decoration: none;
-  margin: 0 8px;
+  margin: 0 7px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
   .hero h1 {
     font-size: 29px;
   }
 
   .grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card {
+    padding: 20px 8px;
   }
 }
 </style>
@@ -163,6 +173,7 @@ footer a {
 </header>
 
 <section class="hero">
+
   <h1>
     Smart Tools.<br>
     <span>Infinite Possibilities.</span>
@@ -175,11 +186,11 @@ footer a {
   <div class="search">
     <input
       type="search"
-      id="toolSearch"
+      id="searchInput"
       placeholder="Search your favorite tool..."
-      aria-label="Search tools"
     >
   </div>
+
 </section>
 
 <section class="tools">
@@ -188,71 +199,76 @@ footer a {
 
   <div class="grid">
 
+    <!-- QR GENERATOR -->
     <a href="qr-generator.html" class="card">
       <div class="emoji">📱</div>
       <h3>QR Generator</h3>
       <p>Create QR codes easily</p>
     </a>
 
+    <!-- PASSWORD GENERATOR -->
     <a href="password-generator.html" class="card">
       <div class="emoji">🔐</div>
       <h3>Password Generator</h3>
       <p>Create strong passwords</p>
     </a>
 
+    <!-- IMAGE COMPRESSOR -->
     <a href="image-compressor.html" class="card">
       <div class="emoji">🖼️</div>
       <h3>Image Compressor</h3>
       <p>Compress images easily</p>
     </a>
 
+    <!-- PDF TOOLS -->
     <a href="pdf-tools.html" class="card">
       <div class="emoji">📄</div>
       <h3>PDF Tools</h3>
-      <p>Merge PDF files easily</p>
+      <p>Merge PDF files</p>
     </a>
 
+    <!-- PDF SPLITTER -->
     <a href="pdf-splitter.html" class="card">
       <div class="emoji">✂️</div>
       <h3>PDF Splitter</h3>
-      <p>Split PDF pages easily</p>
+      <p>Split PDF pages</p>
     </a>
 
+    <!-- INVOICE MAKER -->
     <a href="invoice-maker.html" class="card">
       <div class="emoji">🧾</div>
       <h3>Invoice Maker</h3>
-      <p>Create professional invoices</p>
+      <p>Create invoices easily</p>
     </a>
 
+    <!-- CV MAKER -->
     <a href="cv-maker.html" class="card">
       <div class="emoji">📋</div>
       <h3>CV Maker</h3>
-      <p>Create a professional CV</p>
+      <p>Create your professional CV</p>
     </a>
 
   </div>
 
-  <div class="no-results" id="noResults">
+  <div id="noResults">
     No tools found. Try another search!
   </div>
 
 </section>
 
 <footer>
-  © 2026 RAVILOOP. All rights reserved.
+  <p>© 2026 RAVILOOP. All rights reserved.</p>
+
   <p>
-    <a href="about.html">About Us</a>
-    |
-    <a href="contact.html">Contact Us</a>
-    |
-    <a href="privacy.html">Privacy Policy</a>
-    |
-    <a href="terms.html">Terms of Use</a>
+    <a href="about.html">About Us</a> |
+    <a href="contact.html">Contact Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms</a>
   </p>
 </footer>
 
 <script>
-const searchInput = document.getElementById("toolSearch");
+const searchInput = document.getElementById("searchInput");
 const cards = document.querySelectorAll(".grid .card");
 const noResults = document.getElementById("noResults");
 
@@ -262,7 +278,8 @@ searchInput.addEventListener("input", function() {
   let visibleCount = 0;
 
   cards.forEach(function(card) {
-    const cardText = card.textContent.toLowerCase();
+
+    const cardText = card.innerText.toLowerCase();
 
     if (cardText.includes(searchText)) {
       card.style.display = "block";
@@ -270,6 +287,7 @@ searchInput.addEventListener("input", function() {
     } else {
       card.style.display = "none";
     }
+
   });
 
   noResults.style.display =
