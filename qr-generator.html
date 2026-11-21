@@ -12,10 +12,10 @@
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-DXG33MPZF6');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DXG33MPZF6');
 </script>
 
 <style>
@@ -88,6 +88,11 @@ button {
 
 button:hover {
   background: #006bd6;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
 
 #qrcode {
@@ -170,8 +175,8 @@ button:hover {
 <body>
 
 <header class="header">
-  <h1>Free QR Code Generator</h1>
-  <p>Create and download QR codes online for free with RAVILOOP.</p>
+  <h1>RAVILOOP</h1>
+  <p>Free QR Code Generator</p>
 </header>
 
 <main>
@@ -188,7 +193,9 @@ button:hover {
     aria-label="Text or website URL for QR code"
   >
 
-  <button onclick="generateQR()">Generate QR</button>
+  <button id="generateButton" onclick="generateQR()">
+    Generate QR
+  </button>
 
   <div id="qrcode"></div>
 
@@ -220,7 +227,7 @@ button:hover {
   <ol>
     <li>Enter your website URL or text in the input box above.</li>
     <li>Click the Generate QR button.</li>
-    <li>Your QR code will appear on the screen.</li>
+    <li>Wait one second while your QR code is generated.</li>
     <li>Click Download QR Code to save it as a PNG image.</li>
     <li>Scan the downloaded QR code with a phone to test it.</li>
   </ol>
@@ -312,10 +319,12 @@ button:hover {
 
 <script>
 function generateQR() {
+
   const text = document.getElementById("text").value.trim();
   const qr = document.getElementById("qrcode");
   const message = document.getElementById("message");
   const download = document.getElementById("download");
+  const button = document.getElementById("generateButton");
 
   if (text === "") {
     message.innerText = "Please enter some text!";
@@ -330,18 +339,35 @@ function generateQR() {
   qr.innerHTML = "";
   download.hidden = true;
 
-  new QRCode(qr, {
-    text: text,
-    width: 240,
-    height: 240,
-    correctLevel: QRCode.CorrectLevel.H
-  });
+  button.disabled = true;
+  button.innerText = "Generating...";
+  message.innerText = "Please wait...";
 
-  download.hidden = false;
-  message.innerText = "Your QR code is ready!";
+  setTimeout(function() {
+
+    try {
+      new QRCode(qr, {
+        text: text,
+        width: 240,
+        height: 240,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      download.hidden = false;
+      message.innerText = "Your QR code is ready!";
+
+    } catch (error) {
+      message.innerText = "Something went wrong. Please try again.";
+    }
+
+    button.disabled = false;
+    button.innerText = "Generate QR";
+
+  }, 1000);
 }
 
 function downloadQR() {
+
   const qr = document.getElementById("qrcode");
   const message = document.getElementById("message");
 
@@ -362,25 +388,32 @@ function downloadQR() {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, 320, 320);
 
-  if (originalCanvas) {
-    ctx.drawImage(originalCanvas, 40, 40, 240, 240);
-    saveQR(canvas);
-  } else if (originalImage.complete) {
-    ctx.drawImage(originalImage, 40, 40, 240, 240);
-    saveQR(canvas);
-  } else {
-    originalImage.onload = function() {
-      ctx.drawImage(originalImage, 40, 40, 240, 240);
-      saveQR(canvas);
-    };
-  }
-
-  function saveQR(canvas) {
+  function saveQR() {
     const link = document.createElement("a");
     link.download = "raviloop-qr.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
+
     message.innerText = "QR downloaded successfully!";
+  }
+
+  if (originalCanvas) {
+    ctx.drawImage(originalCanvas, 40, 40, 240, 240);
+    saveQR();
+
+  } else if (originalImage.complete) {
+    ctx.drawImage(originalImage, 40, 40, 240, 240);
+    saveQR();
+
+  } else {
+    originalImage.onload = function() {
+      ctx.drawImage(originalImage, 40, 40, 240, 240);
+      saveQR();
+    };
+
+    originalImage.onerror = function() {
+      message.innerText = "Could not download QR code. Please try again.";
+    };
   }
 }
 
