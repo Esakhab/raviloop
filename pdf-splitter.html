@@ -4,8 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free PDF Splitter Online - Split PDF Pages | RAVILOOP</title>
-<meta name="description" content="Split PDF files online for free with RAVILOOP. Extract specific pages or divide your PDF into smaller files quickly and easily.">
+
+<title>Free PDF Splitter Online - Extract PDF Pages | RAVILOOP</title>
+<meta name="description" content="Split PDF files online for free with RAVILOOP. Extract specific page ranges from PDF documents and download selected pages as a new PDF quickly and easily.">
+<link rel="canonical" href="https://esakhab.github.io/raviloop/pdf-splitter.html">
+<meta name="theme-color" content="#080d1b">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
 <script>
@@ -14,6 +18,7 @@
   gtag('js', new Date());
   gtag('config', 'G-DXG33MPZF6');
 </script>
+
 <style>
 * {
   box-sizing: border-box;
@@ -21,19 +26,37 @@
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 20px 15px;
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
   text-align: center;
+  line-height: 1.6;
+}
+
+header {
+  max-width: 850px;
+  margin: 10px auto 30px;
 }
 
 h1 {
   color: #42a5ff;
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+header p {
+  color: #aebbd0;
+  margin-top: 0;
+}
+
+main {
+  max-width: 850px;
+  margin: auto;
 }
 
 .box {
-  max-width: 500px;
+  max-width: 520px;
   margin: 25px auto;
   padding: 25px;
   background: #111b30;
@@ -41,9 +64,30 @@ h1 {
   border-radius: 15px;
 }
 
+.info {
+  color: #aebbd0;
+  font-size: 14px;
+}
+
+.upload-box {
+  padding: 25px 10px;
+  border: 2px dashed #42a5ff;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
 input {
-  margin: 15px 0;
+  margin: 12px 5px;
   max-width: 100%;
+  padding: 11px;
+  background: #080d1b;
+  color: white;
+  border: 1px solid #405473;
+  border-radius: 7px;
+}
+
+input[type="number"] {
+  width: 125px;
 }
 
 button {
@@ -57,112 +101,367 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background: #086bd5;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
 #status {
   color: #42a5ff;
   overflow-wrap: anywhere;
+  margin-top: 18px;
+}
+
+.content-section {
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+  padding: 22px;
+  margin: 25px auto;
+  text-align: left;
+}
+
+.content-section h2 {
+  color: #42a5ff;
+  text-align: center;
+}
+
+.content-section p,
+.content-section li {
+  color: #c4cee0;
+}
+
+.content-section h3 {
+  color: #42a5ff;
+  font-size: 17px;
+}
+
+.content-section a {
+  color: #42a5ff;
+  text-decoration: none;
+}
+
+.content-section a:hover {
+  text-decoration: underline;
+}
+
+.faq-item {
+  border-bottom: 1px solid #263957;
+  padding: 12px 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+footer {
+  color: #aebbd0;
+  margin-top: 40px;
+  padding: 20px 5px;
+  font-size: 13px;
+}
+
+footer a {
+  color: #42a5ff;
+  text-decoration: none;
+  margin: 0 7px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .box,
+  .content-section {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  input[type="number"] {
+    width: 110px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>RAVILOOP PDF Splitter</h1>
-<p>Split your PDF pages easily</p>
+<header>
+  <h1>RAVILOOP</h1>
+  <p>Smart Tools. Infinite Possibilities.</p>
+</header>
 
-<div class="box">
+<main>
 
-  <h2>Upload PDF</h2>
+<section class="box" aria-labelledby="tool-title">
 
-  <input
-    type="file"
-    id="pdfFile"
-    accept="application/pdf,.pdf"
-  >
+  <h2 id="tool-title">Free PDF Splitter Online</h2>
 
-  <p id="pageCount">No PDF selected</p>
+  <p class="info">
+    Extract specific pages from your PDF and save them as a new PDF document.
+  </p>
+
+  <div class="upload-box">
+    <p>📄 Select Your PDF File</p>
+
+    <label for="pdfFile">Choose a PDF document:</label>
+    <br>
+
+    <input
+      type="file"
+      id="pdfFile"
+      accept="application/pdf,.pdf"
+    >
+  </div>
+
+  <p id="pageCount" class="info" aria-live="polite">
+    No PDF selected
+  </p>
 
   <h3>Select Page Range</h3>
 
+  <label for="startPage">Start Page</label>
+  <br>
   <input
     type="number"
     id="startPage"
     placeholder="Start page"
     min="1"
+    step="1"
+    disabled
   >
 
+  <br>
+
+  <label for="endPage">End Page</label>
+  <br>
   <input
     type="number"
     id="endPage"
     placeholder="End page"
     min="1"
+    step="1"
+    disabled
   >
 
   <br>
 
-  <button onclick="splitPDF()">Split PDF</button>
+  <button id="splitButton" type="button" disabled>
+    Split PDF
+  </button>
 
-  <p id="status"></p>
+  <p id="status" role="status" aria-live="polite"></p>
 
-</div>
+</section>
+
+<section class="content-section">
+  <h2>How to Split PDF Pages</h2>
+
+  <ol>
+    <li>Choose a PDF file from your device.</li>
+    <li>Wait for RAVILOOP to read the PDF and count its pages.</li>
+    <li>Enter the starting page number.</li>
+    <li>Enter the ending page number.</li>
+    <li>Click the Split PDF button.</li>
+    <li>Your selected pages will be downloaded as a new PDF.</li>
+  </ol>
+
+  <p>
+    For example, enter Start Page 2 and End Page 5 to extract pages 2, 3, 4 and 5.
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <h3>1. Is RAVILOOP PDF Splitter free?</h3>
+    <p>Yes. You can split PDF documents online for free with RAVILOOP.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>2. Can I extract specific PDF pages?</h3>
+    <p>Yes. Enter the starting and ending page numbers to extract the page range you need.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>3. Do I need to install software?</h3>
+    <p>No. You can use the PDF Splitter in a compatible web browser without installing a separate application.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>4. Can I split PDFs on my mobile phone?</h3>
+    <p>Yes. RAVILOOP works in compatible mobile browsers.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>5. Why is my PDF not loading?</h3>
+    <p>The file may be damaged, password-protected or unsupported. Try selecting another valid PDF file.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>6. Will the original PDF be changed?</h3>
+    <p>No. The tool creates a separate PDF containing your selected pages. Your original file remains unchanged.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <h2>Explore More Free Tools</h2>
+
+  <p>
+    <a href="index.html">All Tools</a> |
+    <a href="qr-generator.html">QR Generator</a> |
+    <a href="password-generator.html">Password Generator</a> |
+    <a href="image-compressor.html">Image Compressor</a> |
+    <a href="pdf-tools.html">PDF Merger</a> |
+    <a href="invoice-maker.html">Invoice Maker</a> |
+    <a href="cv-maker.html">CV Maker</a>
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 RAVILOOP. All rights reserved.</p>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
 <script>
-
 let selectedPDF = null;
 let totalPages = 0;
+let isLoading = false;
+let isSplitting = false;
+let fileVersion = 0;
 
-document.getElementById("pdfFile").addEventListener("change", async function() {
+const pdfFile = document.getElementById("pdfFile");
+const pageCount = document.getElementById("pageCount");
+const startInput = document.getElementById("startPage");
+const endInput = document.getElementById("endPage");
+const status = document.getElementById("status");
+const splitButton = document.getElementById("splitButton");
 
+function updateButton() {
+  splitButton.disabled =
+    !selectedPDF || isLoading || isSplitting;
+}
+
+pdfFile.addEventListener("change", async function() {
   const file = this.files[0];
-  const status = document.getElementById("status");
-  const pageCount = document.getElementById("pageCount");
+  const currentVersion = ++fileVersion;
 
   selectedPDF = null;
   totalPages = 0;
 
-  if (!file) return;
+  startInput.value = "";
+  endInput.value = "";
+  startInput.disabled = true;
+  endInput.disabled = true;
+
+  pageCount.textContent = "No PDF selected";
+
+  if (!file) {
+    status.textContent = "";
+    updateButton();
+    return;
+  }
+
+  if (
+    file.type !== "application/pdf" &&
+    !file.name.toLowerCase().endsWith(".pdf")
+  ) {
+    status.textContent = "Please select a valid PDF file.";
+    pdfFile.value = "";
+    updateButton();
+    return;
+  }
+
+  if (typeof PDFLib === "undefined") {
+    status.textContent =
+      "PDF library could not load. Check your internet connection.";
+    updateButton();
+    return;
+  }
+
+  isLoading = true;
+  updateButton();
 
   try {
-
     status.textContent = "Reading PDF...";
 
     const bytes = await file.arrayBuffer();
 
-    selectedPDF = await PDFLib.PDFDocument.load(bytes);
+    const pdf = await PDFLib.PDFDocument.load(bytes);
 
-    totalPages = selectedPDF.getPageCount();
+    if (currentVersion !== fileVersion) return;
+
+    totalPages = pdf.getPageCount();
+
+    if (totalPages < 1) {
+      throw new Error("This PDF contains no pages.");
+    }
+
+    selectedPDF = pdf;
 
     pageCount.textContent = "Total pages: " + totalPages;
 
-    document.getElementById("startPage").value = 1;
-    document.getElementById("endPage").value = totalPages;
+    startInput.value = 1;
+    endInput.value = totalPages;
 
-    document.getElementById("startPage").max = totalPages;
-    document.getElementById("endPage").max = totalPages;
+    startInput.max = totalPages;
+    endInput.max = totalPages;
+
+    startInput.disabled = false;
+    endInput.disabled = false;
 
     status.textContent = "PDF loaded successfully!";
 
   } catch (error) {
+    if (currentVersion === fileVersion) {
+      selectedPDF = null;
+      totalPages = 0;
+      pageCount.textContent = "Could not read PDF";
+      status.textContent =
+        "Could not open this PDF. It may be damaged or password-protected.";
+    }
 
-    selectedPDF = null;
-    status.textContent = "Error: " + error.message;
-
+  } finally {
+    if (currentVersion === fileVersion) {
+      isLoading = false;
+      updateButton();
+    }
   }
-
 });
 
 async function splitPDF() {
-
-  const status = document.getElementById("status");
+  if (isSplitting || isLoading) return;
 
   if (!selectedPDF) {
     status.textContent = "Please upload a valid PDF first.";
     return;
   }
 
-  const start = Number(document.getElementById("startPage").value);
-  const end = Number(document.getElementById("endPage").value);
+  const start = Number(startInput.value);
+  const end = Number(endInput.value);
 
   if (
     !Number.isInteger(start) ||
@@ -171,13 +470,16 @@ async function splitPDF() {
     end > totalPages ||
     start > end
   ) {
-    status.textContent = "Please enter a valid page range.";
+    status.textContent =
+      "Please enter a valid page range between 1 and " + totalPages + ".";
     return;
   }
 
-  try {
+  isSplitting = true;
+  updateButton();
 
-    status.textContent = "Splitting PDF...";
+  try {
+    status.textContent = "Splitting your PDF...";
 
     const newPDF = await PDFLib.PDFDocument.create();
 
@@ -187,7 +489,10 @@ async function splitPDF() {
       pageIndexes.push(i);
     }
 
-    const pages = await newPDF.copyPages(selectedPDF, pageIndexes);
+    const pages = await newPDF.copyPages(
+      selectedPDF,
+      pageIndexes
+    );
 
     pages.forEach(page => newPDF.addPage(page));
 
@@ -199,8 +504,8 @@ async function splitPDF() {
     );
 
     const url = URL.createObjectURL(blob);
-
     const link = document.createElement("a");
+
     link.href = url;
     link.download = "raviloop-split.pdf";
 
@@ -210,16 +515,20 @@ async function splitPDF() {
 
     setTimeout(() => URL.revokeObjectURL(url), 1000);
 
-    status.textContent = "PDF split successfully!";
+    status.textContent =
+      "PDF split successfully! Your download has started.";
 
   } catch (error) {
+    status.textContent =
+      "Could not split the PDF. Please try another valid PDF file.";
 
-    status.textContent = "Error: " + error.message;
-
+  } finally {
+    isSplitting = false;
+    updateButton();
   }
-
 }
 
+splitButton.addEventListener("click", splitPDF);
 </script>
 
 </body>
