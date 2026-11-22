@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Word Counter Online - Character, Sentence & Paragraph Counter | RAVILOOP</title>
+
+<meta name="description" content="Count words, characters, sentences and paragraphs instantly with RAVILOOP's free online Word Counter. Check reading time, speaking time and keyword density.">
+
+<meta name="keywords" content="word counter, free word counter, character counter, sentence counter, paragraph counter, word count online, reading time calculator">
+
+<meta name="author" content="RAVILOOP">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://esakhab.github.io/raviloop/word-counter.html">
+
+<meta property="og:title" content="Free Online Word Counter | RAVILOOP">
+<meta property="og:description" content="Count words, characters, sentences and paragraphs instantly. Free online writing tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://esakhab.github.io/raviloop/word-counter.html">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Free Word Counter Online | RAVILOOP">
+<meta name="twitter:description" content="Count words and characters instantly with RAVILOOP.">
+
+<meta name="theme-color" content="#0b1020">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DXG33MPZF6');
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "RAVILOOP Word Counter",
+  "url": "https://esakhab.github.io/raviloop/word-counter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Free online word and character counter with sentence, paragraph, reading time and keyword density tools.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0b1020;
+  color: #f1f5f9;
+  line-height: 1.6;
+}
+
+header {
+  background: #111a30;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #26334e;
+}
+
+header a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 25px 18px 50px;
+}
+
+.hero {
+  text-align: center;
+  margin: 20px 0 30px;
+}
+
+.hero h1 {
+  font-size: clamp(27px, 5vw, 38px);
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #a8b4ca;
+}
+
+.editor-box,
+.card,
+.content-box {
+  background: #121c32;
+  border: 1px solid #293852;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  min-height: 240px;
+  padding: 16px;
+  background: #0b1427;
+  color: #fff;
+  border: 1px solid #354763;
+  border-radius: 10px;
+  resize: vertical;
+  font-size: 16px;
+  line-height: 1.7;
+  font-family: Arial, sans-serif;
+}
+
+textarea:focus {
+  outline: 2px solid #60a5fa;
+  border-color: #60a5fa;
+}
+
+textarea::placeholder {
+  color: #8290a8;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.stat {
+  background: #17243d;
+  padding: 16px 10px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid #293852;
+}
+
+.stat strong {
+  display: block;
+  font-size: 25px;
+  color: #60a5fa;
+  overflow-wrap: anywhere;
+}
+
+.stat span {
+  color: #a8b4ca;
+  font-size: 13px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+button {
+  padding: 11px 16px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button.secondary {
+  background: #263650;
+}
+
+button.secondary:hover {
+  background: #354763;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.section-title {
+  margin-bottom: 14px;
+  font-size: 21px;
+}
+
+.keyword-input {
+  width: 100%;
+  padding: 12px;
+  background: #0b1427;
+  border: 1px solid #354763;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  margin: 8px 0 12px;
+}
+
+.keyword-result {
+  color: #60a5fa;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.content-box h2 {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.content-box h3 {
+  margin: 17px 0 6px;
+  color: #93c5fd;
+}
+
+.content-box p,
+.content-box li {
+  color: #c0cad9;
+  margin-bottom: 10px;
+}
+
+.content-box ul {
+  padding-left: 22px;
+}
+
+.faq-item {
+  border-top: 1px solid #293852;
+  padding: 15px 0;
+}
+
+.faq-item h3 {
+  margin-top: 0;
+}
+
+.faq-item p {
+  margin-bottom: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  color: #9aa8bf;
+  border-top: 1px solid #26334e;
+}
+
+footer a {
+  color: #60a5fa;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+#status {
+  min-height: 24px;
+  color: #93c5fd;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+@media(max-width: 600px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .container {
+    padding: 18px 12px 35px;
+  }
+
+  .editor-box,
+  .card,
+  .content-box {
+    padding: 15px;
+  }
+
+  textarea {
+    min-height: 210px;
+  }
+
+  button {
+    flex: 1 1 42%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">RAVILOOP</a>
+</header>
+
+<main class="container">
+
+<section class="hero">
+  <h1>Free Online Word Counter</h1>
+  <p>Count words, characters, sentences and paragraphs instantly.</p>
+</section>
+
+<section class="editor-box">
+  <label for="textInput">Enter or paste your text</label>
+
+  <textarea id="textInput"
+    placeholder="Start typing or paste your text here..."
+    spellcheck="true"
+    aria-label="Enter text to count words and characters"></textarea>
+
+  <div class="stats" aria-live="polite">
+    <div class="stat">
+      <strong id="words">0</strong>
+      <span>Words</span>
+    </div>
+
+    <div class="stat">
+      <strong id="characters">0</strong>
+      <span>Characters</span>
+    </div>
+
+    <div class="stat">
+      <strong id="noSpaces">0</strong>
+      <span>Without Spaces</span>
+    </div>
+
+    <div class="stat">
+      <strong id="sentences">0</strong>
+      <span>Sentences</span>
+    </div>
+
+    <div class="stat">
+      <strong id="paragraphs">0</strong>
+      <span>Paragraphs</span>
+    </div>
+
+    <div class="stat">
+      <strong id="reading">0 min</strong>
+      <span>Reading Time</span>
+    </div>
+
+    <div class="stat">
+      <strong id="speaking">0 min</strong>
+      <span>Speaking Time</span>
+    </div>
+
+    <div class="stat">
+      <strong id="average">0</strong>
+      <span>Avg. Word Length</span>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button type="button" id="copyBtn">Copy Text</button>
+    <button type="button" id="downloadBtn">Download TXT</button>
+    <button type="button" class="secondary" id="upperBtn">UPPERCASE</button>
+    <button type="button" class="secondary" id="lowerBtn">lowercase</button>
+    <button type="button" class="secondary" id="titleBtn">Title Case</button>
+    <button type="button" class="secondary" id="spaceBtn">Remove Extra Spaces</button>
+    <button type="button" class="secondary" id="clearBtn">Clear Text</button>
+  </div>
+
+  <p id="status" role="status" aria-live="polite"></p>
+</section>
+
+<section class="card">
+  <h2 class="section-title">Keyword Density Checker</h2>
+  <label for="keywordInput">Enter a keyword or phrase</label>
+  <input class="keyword-input" id="keywordInput"
+    type="text" placeholder="Example: online tools">
+  <p id="keywordResult" class="keyword-result" aria-live="polite">
+    Enter text and a keyword to check keyword density.
+  </p>
+</section>
+
+<section class="content-box">
+  <h2>How to Use the RAVILOOP Word Counter</h2>
+  <ul>
+    <li>Type or paste your content into the text box.</li>
+    <li>See your word and character count update instantly.</li>
+    <li>Check sentences, paragraphs and estimated reading time.</li>
+    <li>Use the buttons to copy, download or change your text.</li>
+    <li>Enter a keyword to check its frequency and density.</li>
+  </ul>
+
+  <h2>Why Use an Online Word Counter?</h2>
+  <p>
+    A word counter helps students, writers, bloggers, professionals
+    and content creators keep track of their writing. It is useful
+    for essays, articles, assignments, social media posts and reports.
+  </p>
+
+  <h2>Features of Our Free Word Counter</h2>
+
+  <h3>Word and Character Count</h3>
+  <p>
+    Count words and characters in real time, including a separate
+    character count without spaces.
+  </p>
+
+  <h3>Reading and Speaking Time</h3>
+  <p>
+    Get an approximate reading time based on 200 words per minute
+    and speaking time based on 130 words per minute.
+  </p>
+
+  <h3>Keyword Density</h3>
+  <p>
+    Check how often a keyword appears in your text and its
+    approximate percentage of total words.
+  </p>
+</section>
+
+<section class="content-box">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <h3>Is this word counter free?</h3>
+    <p>Yes. RAVILOOP Word Counter is free to use.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How are words counted?</h3>
+    <p>
+      Words are counted by separating text at whitespace.
+      Punctuation attached to a word does not create another word.
+    </p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Does it count characters without spaces?</h3>
+    <p>Yes. It displays total characters and characters excluding whitespace.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How is reading time calculated?</h3>
+    <p>
+      Reading time is estimated using 200 words per minute.
+      Actual reading speed varies from person to person.
+    </p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Is my text uploaded to a server?</h3>
+    <p>
+      Text counting and editing happen locally in your browser.
+      This tool does not upload your entered text to a RAVILOOP server.
+    </p>
+  </div>
+</section>
+
+<section class="content-box">
+  <h2>Explore More Free Tools</h2>
+  <ul>
+    <li><a href="qr-generator.html">QR Code Generator</a></li>
+    <li><a href="password-generator.html">Password Generator</a></li>
+    <li><a href="image-compressor.html">Image Compressor</a></li>
+    <li><a href="pdf-tools.html">PDF Tools</a></li>
+    <li><a href="pdf-splitter.html">PDF Splitter</a></li>
+    <li><a href="invoice-maker.html">Invoice Maker</a></li>
+    <li><a href="cv-maker.html">CV Maker</a></li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 RAVILOOP. All rights reserved.</p>
+  <p>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </p>
+</footer>
+
+<script>
+const textInput = document.getElementById("textInput");
+const keywordInput = document.getElementById("keywordInput");
+const statusBox = document.getElementById("status");
+
+const elements = {
+  words: document.getElementById("words"),
+  characters: document.getElementById("characters"),
+  noSpaces: document.getElementById("noSpaces"),
+  sentences: document.getElementById("sentences"),
+  paragraphs: document.getElementById("paragraphs"),
+  reading: document.getElementById("reading"),
+  speaking: document.getElementById("speaking"),
+  average: document.getElementById("average")
+};
+
+function getWords(text) {
+  const trimmed = text.trim();
+  return trimmed ? trimmed.split(/\s+/u) : [];
+}
+
+function formatTime(minutes) {
+  if (minutes === 0) return "0 min";
+  if (minutes < 1) return "Less than 1 min";
+  return Math.ceil(minutes) + " min";
+}
+
+function updateStats() {
+  const text = textInput.value;
+  const words = getWords(text);
+  const count = words.length;
+
+  const sentences = text.trim()
+    ? (text.match(/[.!?]+(?=\s|$)/g) || []).length
+    : 0;
+
+  const paragraphs = text.trim()
+    ? text.trim().split(/\n\s*\n/).filter(p => p.trim()).length
+    : 0;
+
+  const totalWordLength = words.reduce(
+    (sum, word) => sum + Array.from(word).length, 0
+  );
+
+  elements.words.textContent = count.toLocaleString();
+  elements.characters.textContent = Array.from(text).length.toLocaleString();
+  elements.noSpaces.textContent = Array.from(text.replace(/\s/gu, "")).length.toLocaleString();
+  elements.sentences.textContent = sentences.toLocaleString();
+  elements.paragraphs.textContent = paragraphs.toLocaleString();
+  elements.reading.textContent = formatTime(count / 200);
+  elements.speaking.textContent = formatTime(count / 130);
+  elements.average.textContent = count
+    ? (totalWordLength / count).toFixed(1)
+    : "0";
+
+  updateKeyword();
+}
+
+function updateKeyword() {
+  const text = textInput.value;
+  const keyword = keywordInput.value.trim();
+  const result = document.getElementById("keywordResult");
+  const words = getWords(text);
+
+  if (!keyword || words.length === 0) {
+    result.textContent = "Enter text and a keyword to check keyword density.";
+    return;
+  }
+
+  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = new RegExp(
+    "(^|[^\\p{L}\\p{N}_])" + escaped + "(?=$|[^\\p{L}\\p{N}_])",
+    "giu"
+  );
+
+  const matches = text.match(pattern) || [];
+  const density = (matches.length / words.length) * 100;
+
+  result.textContent =
+    "Keyword occurrences: " + matches.length +
+    " | Keyword density: " + density.toFixed(2) + "%";
+}
+
+textInput.addEventListener("input", updateStats);
+keywordInput.addEventListener("input", updateKeyword);
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  if (!textInput.value) {
+    statusBox.textContent = "Please enter some text first.";
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(textInput.value);
+    statusBox.textContent = "Text copied successfully!";
+  } catch {
+    textInput.select();
+    const copied = document.execCommand("copy");
+    statusBox.textContent = copied
+      ? "Text copied successfully!"
+      : "Copy failed. Please select and copy manually.";
+  }
+});
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  if (!textInput.value) {
+    statusBox.textContent = "Please enter some text first.";
+    return;
+  }
+
+  const blob = new Blob([textInput.value], {
+    type: "text/plain;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "raviloop-word-counter.txt";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+
+  statusBox.textContent = "Text file downloaded!";
+});
+
+document.getElementById("upperBtn").addEventListener("click", () => {
+  textInput.value = textInput.value.toUpperCase();
+  updateStats();
+  statusBox.textContent = "Text converted to uppercase.";
+});
+
+document.getElementById("lowerBtn").addEventListener("click", () => {
+  textInput.value = textInput.value.toLowerCase();
+  updateStats();
+  statusBox.textContent = "Text converted to lowercase.";
+});
+
+document.getElementById("titleBtn").addEventListener("click", () => {
+  textInput.value = textInput.value.toLowerCase().replace(
+    /\b[\p{L}\p{N}]/gu,
+    char => char.toUpperCase()
+  );
+  updateStats();
+  statusBox.textContent = "Text converted to title case.";
+});
+
+document.getElementById("spaceBtn").addEventListener("click", () => {
+  textInput.value = textInput.value
+    .split("\n")
+    .map(line => line.trim().replace(/[ \t]+/g, " "))
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n");
+
+  updateStats();
+  statusBox.textContent = "Extra spaces removed.";
+});
+
+document.getElementById("clearBtn").addEventListener("click", () => {
+  textInput.value = "";
+  keywordInput.value = "";
+  updateStats();
+  statusBox.textContent = "Text cleared.";
+});
+
+updateStats();
+</script>
+
+</body>
+  </html>
+  
