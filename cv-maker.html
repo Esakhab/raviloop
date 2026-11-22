@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Free CV Maker Online - Create a Professional Resume | RAVILOOP</title>
-<meta name="description" content="Create a professional CV or resume online for free with RAVILOOP. Add your personal details, education, work experience and skills, then print or save your CV as a PDF.">
+<meta name="description" content="Create a professional CV or resume online for free with RAVILOOP. Add your profile photo, personal details, education, work experience and skills, then save your CV as a PDF.">
+<link rel="canonical" href="https://esakhab.github.io/raviloop/cv-maker.html">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
 <script>
@@ -13,8 +16,11 @@
   gtag('js', new Date());
   gtag('config', 'G-DXG33MPZF6');
 </script>
+
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -22,20 +28,52 @@ body {
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 12px;
+}
+
+header a {
+  color: #42a5ff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 h1 {
   text-align: center;
   color: #42a5ff;
+  margin-bottom: 8px;
 }
 
-.container {
+.intro {
+  text-align: center;
+  color: #b9c9df;
+  max-width: 650px;
+  margin: 0 auto 22px;
+}
+
+.container, .info-section {
   max-width: 750px;
   margin: 20px auto;
   padding: 22px;
   background: #111b30;
   border: 1px solid #263957;
   border-radius: 15px;
+}
+
+h2 {
+  color: #42a5ff;
+  margin-top: 25px;
+}
+
+label {
+  display: block;
+  color: #b9c9df;
+  margin-top: 12px;
 }
 
 input, textarea {
@@ -47,6 +85,7 @@ input, textarea {
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
+  font-size: 15px;
 }
 
 textarea {
@@ -54,8 +93,15 @@ textarea {
   resize: vertical;
 }
 
-label {
-  color: #b9c9df;
+input:focus, textarea:focus, button:focus-visible, a:focus-visible {
+  outline: 2px solid #42a5ff;
+  outline-offset: 3px;
+}
+
+.photo-note {
+  color: #9aabc2;
+  font-size: 13px;
+  margin-top: -8px;
 }
 
 button {
@@ -69,6 +115,22 @@ button {
   font-size: 15px;
 }
 
+button:hover {
+  background: #086bc2;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+#status {
+  color: #8ed5a5;
+  min-height: 24px;
+}
+
 #cvPreview {
   background: white;
   color: #222;
@@ -79,42 +141,181 @@ button {
   overflow-wrap: anywhere;
 }
 
-#cvPreview h2 {
-  color: #1268ae;
+.cv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   border-bottom: 2px solid #1685e8;
-  padding-bottom: 7px;
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+}
+
+.cv-header h2 {
+  color: #1268ae;
+  margin: 0 0 8px;
+  border: none;
+  padding: 0;
+  font-size: 27px;
+}
+
+.cv-header p {
+  margin: 4px 0;
+}
+
+#previewPhoto {
+  width: 115px;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: none;
+  flex-shrink: 0;
 }
 
 #cvPreview h3 {
   color: #1268ae;
+  margin-top: 22px;
   margin-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }
 
 #cvPreview p {
   white-space: pre-wrap;
-  line-height: 1.5;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+
+.info-section p, .info-section li {
+  color: #c2cfe0;
+}
+
+.info-section h2 {
+  margin-top: 5px;
+}
+
+.info-section a {
+  color: #42a5ff;
+  text-decoration: none;
+}
+
+.info-section a:hover {
+  text-decoration: underline;
+}
+
+.faq {
+  padding: 12px 0;
+  border-bottom: 1px solid #344966;
+}
+
+.faq:last-child {
+  border-bottom: none;
+}
+
+.faq h3 {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 10px;
+  color: #9aabc2;
+}
+
+footer a {
+  color: #42a5ff;
+  text-decoration: none;
+  margin: 0 7px;
+}
+
+@media(max-width: 500px) {
+  body {
+    padding: 12px;
+  }
+
+  .container, .info-section {
+    padding: 16px;
+  }
+
+  #cvPreview {
+    padding: 18px;
+  }
+
+  .cv-header {
+    gap: 10px;
+  }
+
+  .cv-header h2 {
+    font-size: 21px;
+  }
+
+  #previewPhoto {
+    width: 85px;
+    height: 105px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+    margin: 4px 0;
+  }
 }
 
 @media print {
+  @page {
+    margin: 15mm;
+  }
+
   body {
     background: white;
+    color: black;
     padding: 0;
+    font-family: Arial, sans-serif;
   }
-  h1, .container > h2, .container > label,
-  .container > input, .container > textarea,
-  .container > button, .container > hr {
+
+  header, .intro, .form-section, .actions,
+  .info-section, footer, #status {
     display: none !important;
   }
+
   .container {
+    display: block;
+    max-width: none;
     margin: 0;
     padding: 0;
     border: none;
     background: white;
   }
+
   #cvPreview {
+    display: block;
+    background: white;
+    color: black;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     border-radius: 0;
+    overflow: visible;
+  }
+
+  #cvPreview h2, #cvPreview h3 {
+    color: #1268ae !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #previewPhoto {
+    display: block;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .cv-header {
+    break-inside: avoid;
   }
 }
 </style>
@@ -122,57 +323,86 @@ button {
 
 <body>
 
-<h1>RAVILOOP CV Maker</h1>
+<header>
+  <a href="index.html">RAVILOOP</a>
+</header>
+
+<main>
+
+<h1>Free CV Maker</h1>
+
+<p class="intro">
+Create a professional CV online for free. Add your profile photo,
+personal information, education, work experience and skills.
+Preview your CV and save it as a PDF.
+</p>
 
 <div class="container">
 
+<div class="form-section">
+
 <h2>Personal Information</h2>
 
-<label>Full Name</label>
+<label for="name">Full Name</label>
 <input id="name" placeholder="Your Full Name">
 
-<label>Email</label>
+<label for="email">Email</label>
 <input id="email" type="email" placeholder="Your Email">
 
-<label>Phone</label>
-<input id="phone" placeholder="Your Phone Number">
+<label for="phone">Phone</label>
+<input id="phone" type="tel" placeholder="Your Phone Number">
 
-<label>Address</label>
+<label for="address">Address</label>
 <input id="address" placeholder="Your City, Country">
 
-<label>Professional Summary</label>
+<label for="photo">Profile Photo (Optional)</label>
+<input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
+
+<p class="photo-note">Choose JPG, PNG or WEBP. Maximum file size: 5 MB.</p>
+
+<label for="summary">Professional Summary</label>
 <textarea id="summary" placeholder="Write a short introduction about yourself"></textarea>
 
 <hr>
 
 <h2>Education</h2>
 
-<label>Education Details</label>
+<label for="education">Education Details</label>
 <textarea id="education" placeholder="School, College, Degree, Year"></textarea>
 
 <hr>
 
 <h2>Work Experience</h2>
 
-<label>Work Experience</label>
+<label for="experience">Work Experience</label>
 <textarea id="experience" placeholder="Company Name, Job Title, Work Details"></textarea>
 
 <hr>
 
 <h2>Skills</h2>
 
-<label>Your Skills</label>
+<label for="skills">Your Skills</label>
 <textarea id="skills" placeholder="Communication, Computer Skills, Teamwork"></textarea>
 
-<br>
+</div>
 
-<button onclick="generateCV()">Generate CV</button>
-<button onclick="window.print()">Download CV PDF</button>
+<div class="actions">
+  <button type="button" id="generateButton">Generate CV</button>
+  <button type="button" id="downloadButton">Download CV PDF</button>
+</div>
+
+<p id="status" role="status" aria-live="polite"></p>
 
 <div id="cvPreview">
 
-<h2 id="previewName">Your Name</h2>
-<p id="previewContact">Email | Phone | Address</p>
+<div class="cv-header">
+  <div>
+    <h2 id="previewName">Your Name</h2>
+    <p id="previewContact">Email | Phone | Address</p>
+  </div>
+
+  <img id="previewPhoto" alt="Profile photo">
+</div>
 
 <h3>Professional Summary</h3>
 <p id="previewSummary">Your summary will appear here.</p>
@@ -187,13 +417,121 @@ button {
 <p id="previewSkills">Your skills will appear here.</p>
 
 </div>
-
 </div>
 
+<section class="info-section">
+<h2>How to Use the CV Maker</h2>
+<ol>
+  <li>Enter your full name and contact information.</li>
+  <li>Upload an optional profile photo.</li>
+  <li>Write your professional summary.</li>
+  <li>Add your education and work experience.</li>
+  <li>Enter your skills.</li>
+  <li>Click Generate CV to preview your resume.</li>
+  <li>Click Download CV PDF and choose Save as PDF.</li>
+</ol>
+</section>
+
+<section class="info-section">
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+<h3>Is RAVILOOP CV Maker free?</h3>
+<p>Yes. You can create a CV online for free without creating an account.</p>
+</div>
+
+<div class="faq">
+<h3>Can I add my profile photo?</h3>
+<p>Yes. You can upload a JPG, PNG or WEBP photo up to 5 MB. Adding a photo is optional.</p>
+</div>
+
+<div class="faq">
+<h3>Can I save my CV as a PDF?</h3>
+<p>Yes. Click Download CV PDF and select Save as PDF in your browser's print options.</p>
+</div>
+
+<div class="faq">
+<h3>Can I create a CV without a photo?</h3>
+<p>Yes. The photo is optional. You can create and download your CV without uploading one.</p>
+</div>
+
+<div class="faq">
+<h3>Is my personal information uploaded?</h3>
+<p>Your CV is prepared in your browser. This tool does not send your CV details or uploaded photo to a RAVILOOP server.</p>
+</div>
+</section>
+
+<section class="info-section">
+<h2>Explore More Free Tools</h2>
+<ul>
+  <li><a href="qr-generator.html">QR Code Generator</a></li>
+  <li><a href="password-generator.html">Password Generator</a></li>
+  <li><a href="image-compressor.html">Image Compressor</a></li>
+  <li><a href="pdf-tools.html">PDF Merger</a></li>
+  <li><a href="pdf-splitter.html">PDF Splitter</a></li>
+  <li><a href="invoice-maker.html">Invoice Maker</a></li>
+</ul>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 RAVILOOP. All rights reserved.</p>
+  <a href="about.html">About Us</a> |
+  <a href="contact.html">Contact Us</a> |
+  <a href="privacy.html">Privacy Policy</a> |
+  <a href="terms.html">Terms</a>
+</footer>
+
 <script>
+const photoInput = document.getElementById("photo");
+const previewPhoto = document.getElementById("previewPhoto");
+const statusElement = document.getElementById("status");
+
+let photoData = "";
+
+photoInput.addEventListener("change", function() {
+  const file = this.files[0];
+
+  if (!file) {
+    photoData = "";
+    previewPhoto.removeAttribute("src");
+    previewPhoto.style.display = "none";
+    return;
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+  if (!allowedTypes.includes(file.type)) {
+    alert("Please choose a JPG, PNG or WEBP image.");
+    this.value = "";
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    alert("Photo must be smaller than 5 MB.");
+    this.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+    photoData = event.target.result;
+    previewPhoto.src = photoData;
+    previewPhoto.style.display = "block";
+    statusElement.textContent = "Profile photo added successfully.";
+  };
+
+  reader.onerror = function() {
+    alert("Could not read this photo. Please try another image.");
+    photoInput.value = "";
+  };
+
+  reader.readAsDataURL(file);
+});
 
 function generateCV() {
-
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const phone = document.getElementById("phone").value.trim();
@@ -201,7 +539,8 @@ function generateCV() {
 
   if (!name) {
     alert("Please enter your full name.");
-    return;
+    document.getElementById("name").focus();
+    return false;
   }
 
   document.getElementById("previewName").textContent = name;
@@ -210,22 +549,44 @@ function generateCV() {
     [email, phone, address].filter(Boolean).join(" | ");
 
   document.getElementById("previewSummary").textContent =
-    document.getElementById("summary").value || "Not provided";
+    document.getElementById("summary").value.trim() || "Not provided";
 
   document.getElementById("previewEducation").textContent =
-    document.getElementById("education").value || "Not provided";
+    document.getElementById("education").value.trim() || "Not provided";
 
   document.getElementById("previewExperience").textContent =
-    document.getElementById("experience").value || "Not provided";
+    document.getElementById("experience").value.trim() || "Not provided";
 
   document.getElementById("previewSkills").textContent =
-    document.getElementById("skills").value || "Not provided";
+    document.getElementById("skills").value.trim() || "Not provided";
+
+  if (photoData) {
+    previewPhoto.src = photoData;
+    previewPhoto.style.display = "block";
+  } else {
+    previewPhoto.removeAttribute("src");
+    previewPhoto.style.display = "none";
+  }
+
+  statusElement.textContent = "Your CV has been generated successfully.";
 
   document.getElementById("cvPreview").scrollIntoView({
-    behavior: "smooth"
+    behavior: "smooth",
+    block: "start"
   });
+
+  return true;
 }
 
+document.getElementById("generateButton").addEventListener("click", generateCV);
+
+document.getElementById("downloadButton").addEventListener("click", function() {
+  if (!generateCV()) {
+    return;
+  }
+
+  window.print();
+});
 </script>
 
 </body>
