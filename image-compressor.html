@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Free Image Compressor Online - Reduce Image Size | RAVILOOP</title>
-<meta name="description" content="Compress images online for free with RAVILOOP. Reduce JPG and other image file sizes while maintaining quality. Fast, simple and easy to use.">
+<title>Free Image Compressor Online - Reduce JPG Image Size | RAVILOOP</title>
+<meta name="description" content="Compress images online for free with RAVILOOP. Reduce JPG, PNG and other image file sizes, adjust image quality and download compressed images easily.">
+<link rel="canonical" href="https://esakhab.github.io/raviloop/image-compressor.html">
+
+<meta name="theme-color" content="#080d1b">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
 <script>
@@ -14,6 +18,7 @@
   gtag('js', new Date());
   gtag('config', 'G-DXG33MPZF6');
 </script>
+
 <style>
 * {
   box-sizing: border-box;
@@ -21,26 +26,51 @@
 
 body {
   margin: 0;
-  padding: 25px 15px;
+  padding: 20px 15px;
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
   text-align: center;
+  line-height: 1.6;
 }
 
-h1 {
+header {
+  max-width: 850px;
+  margin: 10px auto 30px;
+}
+
+header h1 {
   color: #42a5ff;
-  margin-top: 30px;
   font-size: 30px;
+  margin-bottom: 5px;
+}
+
+header p {
+  color: #aebbd0;
+  margin-top: 0;
+}
+
+main {
+  max-width: 850px;
+  margin: auto;
+}
+
+h2 {
+  color: #42a5ff;
 }
 
 .container {
-  max-width: 450px;
-  margin: 30px auto;
+  max-width: 500px;
+  margin: 25px auto;
   padding: 25px;
   background: #111b30;
   border: 1px solid #263957;
   border-radius: 18px;
+}
+
+.info {
+  color: #aebbd0;
+  font-size: 14px;
 }
 
 .upload-box {
@@ -58,6 +88,7 @@ input[type="file"] {
 input[type="range"] {
   width: 100%;
   margin: 15px 0;
+  accent-color: #1685ff;
 }
 
 button {
@@ -77,31 +108,36 @@ button:hover {
 
 button:disabled {
   opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
 }
 
 #preview {
   display: none;
   width: 100%;
-  max-height: 250px;
+  max-height: 300px;
   object-fit: contain;
   margin-top: 20px;
   border-radius: 10px;
   background: #080d1b;
 }
 
-.info {
-  color: #aebbd0;
-  font-size: 14px;
-}
-
 #result {
   margin-top: 20px;
-  line-height: 1.8;
+  line-height: 1.9;
   overflow-wrap: anywhere;
+  color: #e4edff;
 }
 
 #message {
   color: #42a5ff;
+  overflow-wrap: anywhere;
 }
 
 #download {
@@ -109,64 +145,211 @@ button:disabled {
   background: #13a66b;
 }
 
+#download:hover {
+  background: #0e8757;
+}
+
+.content-section {
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+  padding: 22px;
+  margin: 25px auto;
+  text-align: left;
+}
+
+.content-section h2 {
+  text-align: center;
+}
+
+.content-section p,
+.content-section li {
+  color: #c4cee0;
+}
+
+.content-section h3 {
+  color: #42a5ff;
+  font-size: 17px;
+}
+
+.content-section a {
+  color: #42a5ff;
+  text-decoration: none;
+}
+
+.content-section a:hover {
+  text-decoration: underline;
+}
+
+.faq-item {
+  border-bottom: 1px solid #263957;
+  padding: 12px 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
 footer {
   color: #aebbd0;
   margin-top: 40px;
+  padding: 20px 5px;
   font-size: 13px;
+}
+
+footer a {
+  color: #42a5ff;
+  text-decoration: none;
+  margin: 0 7px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .container,
+  .content-section {
+    padding: 18px;
+  }
+
+  header h1 {
+    font-size: 26px;
+  }
+
+  button {
+    max-width: 100%;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>RAVILOOP</h1>
-<p>Smart Tools. Infinite Possibilities.</p>
+<header>
+  <h1>RAVILOOP</h1>
+  <p>Smart Tools. Infinite Possibilities.</p>
+</header>
 
-<div class="container">
+<main>
 
-<h2>Image Compressor</h2>
+<section class="container" aria-labelledby="tool-title">
 
-<p class="info">
-Reduce your image size easily and quickly.
-</p>
+  <h2 id="tool-title">Free Image Compressor</h2>
 
-<div class="upload-box">
-  <p>📷 Select Your Image</p>
-  <input type="file" id="upload" accept="image/*">
-</div>
+  <p class="info">
+    Reduce your image file size online. Adjust quality, preview the result and download your compressed image.
+  </p>
 
-<p>Image Quality</p>
+  <div class="upload-box">
+    <p>📷 Select Your Image</p>
+    <label for="upload">Choose an image file:</label>
+    <br><br>
+    <input type="file" id="upload" accept="image/*">
+    <p class="info">Maximum file size: 20 MB</p>
+  </div>
 
-<input type="range" id="quality"
-min="10" max="100" value="70">
+  <label for="quality">Image Quality</label>
 
-<p id="qualityValue">70%</p>
+  <input type="range" id="quality"
+    min="10" max="100" value="70">
 
-<button id="compress" onclick="compressImage()">
-Compress Image
-</button>
+  <p id="qualityValue">70%</p>
 
-<img id="preview" alt="Compressed image preview">
+  <button id="compress" type="button">
+    Compress Image
+  </button>
 
-<div id="result"></div>
+  <img id="preview" alt="Preview of compressed image">
 
-<p id="message"></p>
+  <div id="result" aria-live="polite"></div>
 
-<button id="download" onclick="downloadImage()">
-Download Compressed Image
-</button>
+  <p id="message" role="status" aria-live="polite"></p>
 
-</div>
+  <button id="download" type="button">
+    Download Compressed Image
+  </button>
+
+</section>
+
+<section class="content-section">
+  <h2>How to Use the Image Compressor</h2>
+
+  <ol>
+    <li>Choose an image from your device.</li>
+    <li>Adjust the image quality using the slider.</li>
+    <li>Click the Compress Image button.</li>
+    <li>Preview the compressed image and compare its size.</li>
+    <li>Click Download Compressed Image to save it.</li>
+  </ol>
+
+  <p>
+    RAVILOOP makes it easy to reduce image file sizes directly in your browser.
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <h3>1. Is RAVILOOP Image Compressor free?</h3>
+    <p>Yes. You can use this image compressor online for free.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>2. Which image formats can I upload?</h3>
+    <p>You can select image files supported by your browser. The compressed download is saved as a JPEG image.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>3. Can I adjust image quality?</h3>
+    <p>Yes. Use the quality slider to choose a setting between 10% and 100%. Lower settings generally produce smaller files.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>4. Will compression always reduce file size?</h3>
+    <p>No. Some images may become larger after conversion. RAVILOOP shows you the original and compressed file sizes.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>5. Does the compressor resize images?</h3>
+    <p>Images with a longest dimension above 2000 pixels are resized proportionally. Smaller images keep their original dimensions.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>6. Are transparent backgrounds preserved?</h3>
+    <p>No. The JPEG output uses a white background, so transparent areas are filled with white.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <h2>Explore More Free Tools</h2>
+  <p>
+    <a href="index.html">All Tools</a> |
+    <a href="qr-generator.html">QR Generator</a> |
+    <a href="password-generator.html">Password Generator</a> |
+    <a href="pdf-tools.html">PDF Tools</a> |
+    <a href="pdf-splitter.html">PDF Splitter</a> |
+    <a href="invoice-maker.html">Invoice Maker</a> |
+    <a href="cv-maker.html">CV Maker</a>
+  </p>
+</section>
+
+</main>
 
 <footer>
-© 2026 RAVILOOP. All rights reserved.
+  <p>© 2026 RAVILOOP. All rights reserved.</p>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
 </footer>
 
 <script>
-
 let compressedBlob = null;
 let originalFile = null;
 let previewUrl = null;
+let isProcessing = false;
 
 const upload = document.getElementById("upload");
 const quality = document.getElementById("quality");
@@ -174,138 +357,164 @@ const preview = document.getElementById("preview");
 const result = document.getElementById("result");
 const message = document.getElementById("message");
 const download = document.getElementById("download");
+const compressButton = document.getElementById("compress");
 
 quality.addEventListener("input", function() {
-  document.getElementById("qualityValue").innerText =
+  document.getElementById("qualityValue").textContent =
     this.value + "%";
 });
 
-upload.addEventListener("change", function() {
-  originalFile = this.files[0] || null;
-  compressedBlob = null;
-
+function clearPreview() {
   if (previewUrl) {
     URL.revokeObjectURL(previewUrl);
     previewUrl = null;
   }
 
+  preview.removeAttribute("src");
   preview.style.display = "none";
-  download.style.display = "none";
-  result.innerText = "";
+}
 
-  if (originalFile) {
-    message.innerText =
-      "Selected: " + originalFile.name;
-  } else {
-    message.innerText = "";
+upload.addEventListener("change", function() {
+  originalFile = this.files[0] || null;
+  compressedBlob = null;
+
+  clearPreview();
+
+  download.style.display = "none";
+  result.textContent = "";
+
+  if (!originalFile) {
+    message.textContent = "";
+    return;
   }
+
+  if (originalFile.size > 20 * 1024 * 1024) {
+    message.textContent = "File is too large. Please choose an image under 20 MB.";
+    originalFile = null;
+    this.value = "";
+    return;
+  }
+
+  if (!originalFile.type.startsWith("image/")) {
+    message.textContent = "Please select a valid image file.";
+    originalFile = null;
+    this.value = "";
+    return;
+  }
+
+  message.textContent = "Selected: " + originalFile.name;
 });
 
 function compressImage() {
-
   const file = originalFile;
 
+  if (isProcessing) return;
+
   if (!file) {
-    message.innerText = "Please select an image first!";
+    message.textContent = "Please select an image first!";
     return;
   }
 
   if (!file.type.startsWith("image/")) {
-    message.innerText = "Please select a valid image!";
+    message.textContent = "Please select a valid image!";
     return;
   }
 
-  message.innerText = "Compressing image...";
-  result.innerText = "";
+  isProcessing = true;
+  compressButton.disabled = true;
+  compressButton.textContent = "Compressing...";
+
+  compressedBlob = null;
   download.style.display = "none";
+  result.textContent = "";
+  message.textContent = "Compressing your image...";
 
   const reader = new FileReader();
 
   reader.onerror = function() {
-    message.innerText = "Could not read image.";
+    finishWithError("Could not read the selected image.");
   };
 
   reader.onload = function(event) {
-
     const img = new Image();
 
     img.onerror = function() {
-      message.innerText = "Image could not be opened.";
+      finishWithError("Image could not be opened. Try another image format.");
     };
 
     img.onload = function() {
+      try {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
 
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-
-      const maxSize = 2000;
-
-      const scale = Math.min(
-        1,
-        maxSize / Math.max(img.width, img.height)
-      );
-
-      canvas.width = Math.round(img.width * scale);
-      canvas.height = Math.round(img.height * scale);
-
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.drawImage(
-        img,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      const imageQuality =
-        Number(quality.value) / 100;
-
-      canvas.toBlob(function(blob) {
-
-        if (!blob) {
-          message.innerText = "Compression failed!";
+        if (!ctx) {
+          finishWithError("Your browser could not process this image.");
           return;
         }
 
-        compressedBlob = blob;
+        const maxSize = 2000;
 
-        if (previewUrl) {
-          URL.revokeObjectURL(previewUrl);
-        }
+        const scale = Math.min(
+          1,
+          maxSize / Math.max(img.width, img.height)
+        );
 
-        previewUrl = URL.createObjectURL(blob);
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
 
-        preview.src = previewUrl;
-        preview.style.display = "block";
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const oldSize =
-          (file.size / 1024).toFixed(2);
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
 
-        const newSize =
-          (blob.size / 1024).toFixed(2);
+        const imageQuality = Number(quality.value) / 100;
 
-        const saved =
-          ((file.size - blob.size) / file.size * 100).toFixed(1);
+        canvas.toBlob(function(blob) {
+          if (!blob) {
+            finishWithError("Compression failed. Please try another image.");
+            return;
+          }
 
-        result.innerHTML =
-          "<strong>Original Size:</strong> " +
-          oldSize + " KB<br>" +
-          "<strong>Compressed Size:</strong> " +
-          newSize + " KB<br>" +
-          "<strong>Size Change:</strong> " +
-          saved + "%";
+          compressedBlob = blob;
 
-        message.innerText =
-          blob.size < file.size
-          ? "Image compressed successfully!"
-          : "Image converted, but size did not decrease.";
+          clearPreview();
 
-        download.style.display = "inline-block";
+          previewUrl = URL.createObjectURL(blob);
+          preview.src = previewUrl;
+          preview.style.display = "block";
 
-      }, "image/jpeg", imageQuality);
+          const oldSize = (file.size / 1024).toFixed(2);
+          const newSize = (blob.size / 1024).toFixed(2);
 
+          const saved = ((file.size - blob.size) / file.size * 100);
+
+          result.innerHTML =
+            "<strong>Original Size:</strong> " + oldSize + " KB<br>" +
+            "<strong>Compressed Size:</strong> " + newSize + " KB<br>" +
+            "<strong>Size Change:</strong> " +
+            (saved >= 0 ? saved.toFixed(1) + "% smaller" :
+              Math.abs(saved).toFixed(1) + "% larger");
+
+          message.textContent =
+            blob.size < file.size
+              ? "Image compressed successfully!"
+              : "Image converted, but the file size did not decrease.";
+
+          download.style.display = "inline-block";
+
+          finishProcessing();
+
+        }, "image/jpeg", imageQuality);
+
+      } catch (error) {
+        finishWithError("Something went wrong while compressing the image.");
+      }
     };
 
     img.src = event.target.result;
@@ -314,15 +523,26 @@ function compressImage() {
   reader.readAsDataURL(file);
 }
 
-function downloadImage() {
+function finishProcessing() {
+  isProcessing = false;
+  compressButton.disabled = false;
+  compressButton.textContent = "Compress Image";
+}
 
+function finishWithError(errorMessage) {
+  compressedBlob = null;
+  download.style.display = "none";
+  message.textContent = errorMessage;
+  finishProcessing();
+}
+
+function downloadImage() {
   if (!compressedBlob) {
-    message.innerText = "Compress an image first!";
+    message.textContent = "Compress an image first!";
     return;
   }
 
   const url = URL.createObjectURL(compressedBlob);
-
   const link = document.createElement("a");
 
   link.href = url;
@@ -332,11 +552,17 @@ function downloadImage() {
   link.click();
   link.remove();
 
-  URL.revokeObjectURL(url);
+  setTimeout(function() {
+    URL.revokeObjectURL(url);
+  }, 1000);
 
-  message.innerText = "Download started!";
+  message.textContent = "Download started!";
 }
 
+compressButton.addEventListener("click", compressImage);
+download.addEventListener("click", downloadImage);
+
+window.addEventListener("beforeunload", clearPreview);
 </script>
 
 </body>
