@@ -1,12 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Free PDF Tools Online - Merge PDF Files | RAVILOOP</title>
-<meta name="description" content="Use free online PDF tools with RAVILOOP. Merge PDF files quickly and easily in your browser. Simple, fast and secure PDF processing.">
+<title>Free PDF Merger Online - Combine PDF Files | RAVILOOP</title>
+<meta name="description" content="Merge PDF files online for free with RAVILOOP. Combine multiple PDF documents into one file quickly and easily in your browser.">
+<link rel="canonical" href="https://esakhab.github.io/raviloop/pdf-tools.html">
+<meta name="theme-color" content="#080d1b">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
 <script>
@@ -15,6 +17,7 @@
   gtag('js', new Date());
   gtag('config', 'G-DXG33MPZF6');
 </script>
+
 <style>
 * {
   box-sizing: border-box;
@@ -22,24 +25,60 @@
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 20px 15px;
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
   text-align: center;
+  line-height: 1.6;
+}
+
+header {
+  max-width: 850px;
+  margin: 10px auto 30px;
 }
 
 h1 {
   color: #42a5ff;
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+header p {
+  color: #aebbd0;
+  margin-top: 0;
+}
+
+main {
+  max-width: 850px;
+  margin: auto;
 }
 
 .box {
-  max-width: 500px;
+  max-width: 520px;
   margin: 25px auto;
   padding: 25px;
   background: #111b30;
   border: 1px solid #263957;
   border-radius: 15px;
+}
+
+.info {
+  color: #aebbd0;
+  font-size: 14px;
+}
+
+.upload-box {
+  padding: 25px 10px;
+  border: 2px dashed #42a5ff;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+input[type="file"] {
+  margin: 15px 0;
+  max-width: 100%;
+  color: white;
 }
 
 button {
@@ -53,52 +92,254 @@ button {
   cursor: pointer;
 }
 
-input {
-  margin: 15px 0;
-  max-width: 100%;
+button:hover {
+  background: #086bd5;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
 }
 
 #status {
   color: #42a5ff;
   overflow-wrap: anywhere;
+  margin-top: 18px;
+}
+
+.content-section {
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+  padding: 22px;
+  margin: 25px auto;
+  text-align: left;
+}
+
+.content-section h2 {
+  color: #42a5ff;
+  text-align: center;
+}
+
+.content-section p,
+.content-section li {
+  color: #c4cee0;
+}
+
+.content-section h3 {
+  color: #42a5ff;
+  font-size: 17px;
+}
+
+.content-section a {
+  color: #42a5ff;
+  text-decoration: none;
+}
+
+.content-section a:hover {
+  text-decoration: underline;
+}
+
+.faq-item {
+  border-bottom: 1px solid #263957;
+  padding: 12px 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+footer {
+  color: #aebbd0;
+  margin-top: 40px;
+  padding: 20px 5px;
+  font-size: 13px;
+}
+
+footer a {
+  color: #42a5ff;
+  text-decoration: none;
+  margin: 0 7px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .box,
+  .content-section {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>RAVILOOP PDF Tools</h1>
-<p>Simple and free PDF tools</p>
+<header>
+  <h1>RAVILOOP</h1>
+  <p>Smart Tools. Infinite Possibilities.</p>
+</header>
 
-<div class="box">
+<main>
 
-  <h2>Merge PDF Files</h2>
+<section class="box" aria-labelledby="tool-title">
 
-  <p>Select multiple PDF files to combine them.</p>
+  <h2 id="tool-title">Free PDF Merger Online</h2>
 
-  <input
-    type="file"
-    id="files"
-    accept="application/pdf,.pdf"
-    multiple
-  >
+  <p class="info">
+    Combine multiple PDF documents into one file quickly and easily.
+  </p>
 
-  <br>
+  <div class="upload-box">
+    <p>📄 Select Your PDF Files</p>
 
-  <button onclick="mergePDF()">Merge PDFs</button>
+    <label for="files">Choose at least two PDF files:</label>
+    <br>
 
-  <p id="status"></p>
+    <input
+      type="file"
+      id="files"
+      accept="application/pdf,.pdf"
+      multiple
+    >
 
-</div>
+    <p class="info">
+      Select files in the order you want them merged.
+    </p>
+  </div>
+
+  <button id="mergeButton" type="button">
+    Merge PDF Files
+  </button>
+
+  <p id="status" role="status" aria-live="polite"></p>
+
+</section>
+
+<section class="content-section">
+  <h2>How to Merge PDF Files</h2>
+
+  <ol>
+    <li>Click the file selection button.</li>
+    <li>Select at least two PDF documents from your device.</li>
+    <li>Choose the files in the order you want them combined.</li>
+    <li>Click the Merge PDF Files button.</li>
+    <li>Wait for the merging process to finish.</li>
+    <li>Your merged PDF will download automatically.</li>
+  </ol>
+
+  <p>
+    RAVILOOP makes combining PDF documents simple and convenient.
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <h3>1. Is the RAVILOOP PDF Merger free?</h3>
+    <p>Yes. You can merge PDF files online for free using RAVILOOP.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>2. How many PDF files can I merge?</h3>
+    <p>You need at least two PDF files. The number you can merge depends on your device's available memory and browser capabilities.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>3. Can I choose the order of PDF pages?</h3>
+    <p>The files are merged in the order they are selected. Pages inside each PDF keep their original order.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>4. Do I need to install software?</h3>
+    <p>No. You can use the PDF merger directly in a supported web browser.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>5. Why did my PDF fail to merge?</h3>
+    <p>A PDF may fail if it is damaged, password-protected, unsupported or too large for your device to process.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>6. Can I merge PDFs on my mobile phone?</h3>
+    <p>Yes. You can use RAVILOOP on a compatible mobile browser.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <h2>Explore More Free Tools</h2>
+
+  <p>
+    <a href="index.html">All Tools</a> |
+    <a href="qr-generator.html">QR Generator</a> |
+    <a href="password-generator.html">Password Generator</a> |
+    <a href="image-compressor.html">Image Compressor</a> |
+    <a href="pdf-splitter.html">PDF Splitter</a> |
+    <a href="invoice-maker.html">Invoice Maker</a> |
+    <a href="cv-maker.html">CV Maker</a>
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 RAVILOOP. All rights reserved.</p>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
 <script>
+const filesInput = document.getElementById("files");
+const status = document.getElementById("status");
+const mergeButton = document.getElementById("mergeButton");
+
+let isMerging = false;
+
+filesInput.addEventListener("change", function() {
+  const files = Array.from(this.files);
+
+  if (files.length === 0) {
+    status.textContent = "";
+    return;
+  }
+
+  const invalidFile = files.find(file =>
+    file.type !== "application/pdf" &&
+    !file.name.toLowerCase().endsWith(".pdf")
+  );
+
+  if (invalidFile) {
+    status.textContent = "Please select only PDF files.";
+    this.value = "";
+    return;
+  }
+
+  status.textContent =
+    files.length + " PDF file(s) selected.";
+});
 
 async function mergePDF() {
+  if (isMerging) return;
 
-  const files = document.getElementById("files").files;
-  const status = document.getElementById("status");
+  const files = Array.from(filesInput.files);
 
   if (files.length < 2) {
     status.textContent = "Please select at least 2 PDF files.";
@@ -106,19 +347,25 @@ async function mergePDF() {
   }
 
   if (typeof PDFLib === "undefined") {
-    status.textContent = "PDF library could not load. Check your internet connection.";
+    status.textContent =
+      "PDF library could not load. Check your internet connection.";
     return;
   }
 
-  try {
+  isMerging = true;
+  mergeButton.disabled = true;
+  mergeButton.textContent = "Merging...";
 
-    status.textContent = "Merging PDFs...";
+  try {
+    status.textContent = "Merging your PDF files...";
 
     const mergedPDF = await PDFLib.PDFDocument.create();
 
-    for (const file of files) {
+    for (let i = 0; i < files.length; i++) {
+      status.textContent =
+        "Processing PDF " + (i + 1) + " of " + files.length + "...";
 
-      const bytes = await file.arrayBuffer();
+      const bytes = await files[i].arrayBuffer();
 
       const pdf = await PDFLib.PDFDocument.load(bytes);
 
@@ -130,8 +377,9 @@ async function mergePDF() {
       pages.forEach(page => {
         mergedPDF.addPage(page);
       });
-
     }
+
+    status.textContent = "Preparing your merged PDF...";
 
     const result = await mergedPDF.save();
 
@@ -141,7 +389,6 @@ async function mergePDF() {
     );
 
     const url = URL.createObjectURL(blob);
-
     const link = document.createElement("a");
 
     link.href = url;
@@ -155,16 +402,19 @@ async function mergePDF() {
       URL.revokeObjectURL(url);
     }, 1000);
 
-    status.textContent = "PDF merged successfully!";
+    status.textContent = "PDF merged successfully! Your download has started.";
 
   } catch (error) {
-
-    status.textContent = "Error: " + error.message;
-
+    status.textContent =
+      "Could not merge PDFs. Check that your files are valid and not password-protected.";
+  } finally {
+    isMerging = false;
+    mergeButton.disabled = false;
+    mergeButton.textContent = "Merge PDF Files";
   }
-
 }
 
+mergeButton.addEventListener("click", mergePDF);
 </script>
 
 </body>
