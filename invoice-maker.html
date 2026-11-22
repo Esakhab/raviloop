@@ -1,11 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Invoice Maker Online - Create Invoices | RAVILOOP</title>
-<meta name="description" content="Create professional invoices online for free with RAVILOOP. Add business details, customer information, items, prices and download your invoice as a PDF.">
+
+<title>Free Invoice Maker Online - Create Professional Invoices | RAVILOOP</title>
+<meta name="description" content="Create professional invoices online for free with RAVILOOP. Add business details, customer information, products, prices and save your invoice as a PDF.">
+<link rel="canonical" href="https://esakhab.github.io/raviloop/invoice-maker.html">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
 <script>
@@ -14,8 +16,11 @@
   gtag('js', new Date());
   gtag('config', 'G-DXG33MPZF6');
 </script>
+
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -23,11 +28,32 @@ body {
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 12px 0;
+}
+
+header a {
+  color: #42a5ff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 h1 {
   text-align: center;
   color: #42a5ff;
+  margin-bottom: 8px;
+}
+
+.intro {
+  text-align: center;
+  color: #b9c9df;
+  max-width: 650px;
+  margin: 0 auto 22px;
 }
 
 .container {
@@ -39,7 +65,18 @@ h1 {
   border-radius: 15px;
 }
 
-input, textarea {
+h2 {
+  color: #42a5ff;
+  margin-top: 25px;
+}
+
+label {
+  display: block;
+  color: #b9c9df;
+  margin-top: 10px;
+}
+
+input, textarea, select {
   width: 100%;
   padding: 12px;
   margin: 7px 0 15px;
@@ -47,16 +84,28 @@ input, textarea {
   border-radius: 7px;
   background: #080d1b;
   color: white;
+  font-size: 15px;
 }
 
-label {
-  color: #b9c9df;
+textarea {
+  min-height: 75px;
+  resize: vertical;
+}
+
+input:focus, textarea:focus, select:focus, button:focus-visible, a:focus-visible {
+  outline: 2px solid #42a5ff;
+  outline-offset: 3px;
 }
 
 .item {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr auto;
   gap: 8px;
+  align-items: start;
+}
+
+.item input {
+  min-width: 0;
 }
 
 button {
@@ -70,8 +119,24 @@ button {
   font-size: 15px;
 }
 
+button:hover {
+  background: #086bc2;
+}
+
 .remove {
   background: #d93636;
+  margin-top: 7px;
+}
+
+.remove:hover {
+  background: #b92323;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
 }
 
 #total {
@@ -81,33 +146,185 @@ button {
   font-weight: bold;
 }
 
-@media(max-width: 500px) {
+#status {
+  color: #8ed5a5;
+  min-height: 24px;
+}
+
+.info-section {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 22px;
+  background: #111b30;
+  border: 1px solid #263957;
+  border-radius: 15px;
+}
+
+.info-section p, .info-section li {
+  color: #c2cfe0;
+}
+
+.info-section h2 {
+  margin-top: 5px;
+}
+
+.info-section a {
+  color: #42a5ff;
+  text-decoration: none;
+}
+
+.info-section a:hover {
+  text-decoration: underline;
+}
+
+.faq {
+  padding: 12px 0;
+  border-bottom: 1px solid #344966;
+}
+
+.faq:last-child {
+  border-bottom: none;
+}
+
+.faq h3 {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 10px;
+  color: #9aabc2;
+}
+
+footer a {
+  color: #42a5ff;
+  text-decoration: none;
+  margin: 0 7px;
+}
+
+.print-only {
+  display: none;
+}
+
+@media(max-width: 550px) {
+  body {
+    padding: 12px;
+  }
+
+  .container, .info-section {
+    padding: 16px;
+  }
+
   .item {
-    grid-template-columns: 1fr;
-    gap: 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+
+  .item .product {
+    grid-column: 1 / -1;
+  }
+
+  .remove {
+    margin: 0 0 12px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+    margin: 4px 0;
+  }
+
+  #total {
+    font-size: 21px;
   }
 }
 
 @media print {
+  @page {
+    margin: 15mm;
+  }
+
   body {
     background: white;
     color: black;
+    padding: 0;
+    font-family: Arial, sans-serif;
   }
-  .container {
-    background: white;
+
+  header, main, .info-section, footer {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
     color: black;
-    border: none;
   }
-  input, textarea {
+
+  .print-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 2px solid #222;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+
+  .print-header h1 {
     color: black;
-    background: white;
-    border: 1px solid #aaa;
+    text-align: left;
+    margin: 0;
   }
-  button {
-    display: none;
+
+  .print-meta {
+    text-align: right;
   }
-  label {
-    color: black;
+
+  .print-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin: 20px 0;
+  }
+
+  .print-details h3 {
+    margin-bottom: 5px;
+  }
+
+  .print-only table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+  }
+
+  .print-only th, .print-only td {
+    border: 1px solid #999;
+    padding: 9px;
+    text-align: left;
+  }
+
+  .print-only th {
+    background: #eee !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-total {
+    text-align: right;
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 25px;
+  }
+
+  .print-footer {
+    margin-top: 45px;
+    border-top: 1px solid #aaa;
+    padding-top: 12px;
+    font-size: 12px;
   }
 }
 </style>
@@ -115,106 +332,304 @@ button {
 
 <body>
 
-<h1>RAVILOOP Invoice Maker</h1>
+<header>
+  <a href="index.html">RAVILOOP</a>
+</header>
+
+<main>
+<h1>Free Invoice Maker</h1>
+<p class="intro">
+Create professional invoices online for free. Add your business details,
+customer information and products, then save your invoice as a PDF.
+</p>
 
 <div class="container">
 
 <h2>Business Details</h2>
 
-<label>Business Name</label>
+<label for="business">Business Name</label>
 <input id="business" placeholder="Your Business Name">
 
-<label>Business Address</label>
+<label for="address">Business Address</label>
 <textarea id="address" placeholder="Business Address"></textarea>
 
 <h2>Customer Details</h2>
 
-<label>Customer Name</label>
+<label for="customer">Customer Name</label>
 <input id="customer" placeholder="Customer Name">
 
-<label>Invoice Number</label>
+<h2>Invoice Information</h2>
+
+<label for="invoice">Invoice Number</label>
 <input id="invoice" placeholder="INV-001">
 
-<label>Invoice Date</label>
+<label for="date">Invoice Date</label>
 <input type="date" id="date">
 
 <h2>Products / Services</h2>
 
 <div id="items">
-
-<div class="item">
-<input class="product" placeholder="Product Name">
-<input class="qty" type="number" min="1" value="1" placeholder="Quantity">
-<input class="price" type="number" min="0" step="0.01" value="0" placeholder="Price">
+  <div class="item">
+    <input class="product" aria-label="Product name" placeholder="Product Name">
+    <input class="qty" aria-label="Quantity" type="number" min="1" step="1" value="1" placeholder="Quantity">
+    <input class="price" aria-label="Price" type="number" min="0" step="0.01" value="0" placeholder="Price">
+  </div>
 </div>
 
-</div>
+<button type="button" id="addButton">+ Add Item</button>
 
-<button onclick="addItem()">+ Add Item</button>
+<h2 id="total" aria-live="polite">Total: 0.00 SAR</h2>
 
-<h2 id="total">Total: 0.00</h2>
-
-<label>Currency</label>
+<label for="currency">Currency</label>
 <select id="currency">
-<option value="SAR">SAR</option>
-<option value="USD">USD</option>
-<option value="PKR">PKR</option>
-<option value="EUR">EUR</option>
+  <option value="SAR">SAR</option>
+  <option value="USD">USD</option>
+  <option value="PKR">PKR</option>
+  <option value="EUR">EUR</option>
 </select>
 
-<br><br>
+<div class="actions">
+  <button type="button" id="calculateButton">Calculate Total</button>
+  <button type="button" id="downloadButton">Download / Save PDF</button>
+</div>
 
-<button onclick="calculate()">Calculate Total</button>
-<button onclick="window.print()">Download / Save PDF</button>
-
-<p id="status"></p>
+<p id="status" role="status" aria-live="polite"></p>
 
 </div>
 
+<section class="info-section">
+<h2>How to Use the Invoice Maker</h2>
+<ol>
+  <li>Enter your business name and address.</li>
+  <li>Add your customer's name and invoice information.</li>
+  <li>Enter product or service names, quantities and prices.</li>
+  <li>Add more items if needed.</li>
+  <li>Select your preferred currency.</li>
+  <li>Click Download / Save PDF to print or save your invoice.</li>
+</ol>
+</section>
+
+<section class="info-section">
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+<h3>Is RAVILOOP Invoice Maker free?</h3>
+<p>Yes. You can create invoices online for free without creating an account.</p>
+</div>
+
+<div class="faq">
+<h3>Can I add multiple products or services?</h3>
+<p>Yes. Use the Add Item button to include multiple products or services in your invoice.</p>
+</div>
+
+<div class="faq">
+<h3>Which currencies are supported?</h3>
+<p>You can choose Saudi Riyal (SAR), US Dollar (USD), Pakistani Rupee (PKR) or Euro (EUR).</p>
+</div>
+
+<div class="faq">
+<h3>How can I download my invoice?</h3>
+<p>Click Download / Save PDF and choose Save as PDF in your browser's print options.</p>
+</div>
+
+<div class="faq">
+<h3>Is my invoice information uploaded to a server?</h3>
+<p>The invoice is prepared in your browser. This tool does not send your invoice details to a RAVILOOP server.</p>
+</div>
+</section>
+
+<section class="info-section">
+<h2>Explore More Free Tools</h2>
+<ul>
+  <li><a href="qr-generator.html">QR Code Generator</a></li>
+  <li><a href="password-generator.html">Password Generator</a></li>
+  <li><a href="image-compressor.html">Image Compressor</a></li>
+  <li><a href="pdf-tools.html">PDF Merger</a></li>
+  <li><a href="pdf-splitter.html">PDF Splitter</a></li>
+  <li><a href="cv-maker.html">CV Maker</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <p>© 2026 RAVILOOP. All rights reserved.</p>
+  <a href="about.html">About Us</a> |
+  <a href="contact.html">Contact Us</a> |
+  <a href="privacy.html">Privacy Policy</a> |
+  <a href="terms.html">Terms</a>
+</footer>
+
+<!-- Invoice layout used only for printing -->
+<section class="print-only" id="printInvoice">
+  <div class="print-header">
+    <div>
+      <h1>INVOICE</h1>
+      <p id="printBusiness"></p>
+      <p id="printAddress"></p>
+    </div>
+    <div class="print-meta">
+      <p><strong>Invoice Number:</strong> <span id="printNumber"></span></p>
+      <p><strong>Date:</strong> <span id="printDate"></span></p>
+    </div>
+  </div>
+
+  <div class="print-details">
+    <div>
+      <h3>Bill To</h3>
+      <p id="printCustomer"></p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product / Service</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody id="printItems"></tbody>
+  </table>
+
+  <p class="print-total" id="printTotal"></p>
+
+  <div class="print-footer">
+    <p>Thank you for your business!</p>
+  </div>
+</section>
+
 <script>
+const itemsContainer = document.getElementById("items");
+const currencySelect = document.getElementById("currency");
+const totalElement = document.getElementById("total");
+const statusElement = document.getElementById("status");
+
+function getCurrency() {
+  return currencySelect.value;
+}
+
+function getTotal() {
+  let total = 0;
+
+  document.querySelectorAll("#items .item").forEach(row => {
+    const qty = Math.max(0, Number(row.querySelector(".qty").value) || 0);
+    const price = Math.max(0, Number(row.querySelector(".price").value) || 0);
+    total += qty * price;
+  });
+
+  return total;
+}
+
+function calculate() {
+  const total = getTotal();
+
+  totalElement.textContent =
+    "Total: " + total.toFixed(2) + " " + getCurrency();
+
+  statusElement.textContent = "";
+}
 
 function addItem() {
   const div = document.createElement("div");
   div.className = "item";
 
-  div.innerHTML = `
-    <input class="product" placeholder="Product Name">
-    <input class="qty" type="number" min="1" value="1" placeholder="Quantity">
-    <input class="price" type="number" min="0" step="0.01" value="0" placeholder="Price">
-    <button class="remove" onclick="this.parentElement.remove(); calculate();">Remove Item</button>
-  `;
+  const product = document.createElement("input");
+  product.className = "product";
+  product.placeholder = "Product Name";
+  product.setAttribute("aria-label", "Product name");
 
-  document.getElementById("items").appendChild(div);
+  const qty = document.createElement("input");
+  qty.className = "qty";
+  qty.type = "number";
+  qty.min = "1";
+  qty.step = "1";
+  qty.value = "1";
+  qty.placeholder = "Quantity";
+  qty.setAttribute("aria-label", "Quantity");
+
+  const price = document.createElement("input");
+  price.className = "price";
+  price.type = "number";
+  price.min = "0";
+  price.step = "0.01";
+  price.value = "0";
+  price.placeholder = "Price";
+  price.setAttribute("aria-label", "Price");
+
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "remove";
+  remove.textContent = "Remove";
+  remove.setAttribute("aria-label", "Remove this item");
+  remove.addEventListener("click", () => {
+    div.remove();
+    calculate();
+  });
+
+  div.append(product, qty, price, remove);
+  itemsContainer.appendChild(div);
   calculate();
 }
 
-function calculate() {
-
-  let total = 0;
-
-  const rows = document.querySelectorAll("#items .item");
-
-  rows.forEach(row => {
-    const qty = Number(row.querySelector(".qty").value) || 0;
-    const price = Number(row.querySelector(".price").value) || 0;
-
-    total += qty * price;
-  });
-
-  const currency = document.getElementById("currency").value;
-
-  document.getElementById("total").textContent =
-    "Total: " + total.toFixed(2) + " " + currency;
-
-  document.getElementById("status").textContent = "";
+function setText(id, value) {
+  document.getElementById(id).textContent = value || "—";
 }
 
-document.getElementById("items").addEventListener("input", calculate);
-document.getElementById("currency").addEventListener("change", calculate);
+function preparePrint() {
+  setText("printBusiness", document.getElementById("business").value.trim());
+  setText("printAddress", document.getElementById("address").value.trim());
+  setText("printCustomer", document.getElementById("customer").value.trim());
+  setText("printNumber", document.getElementById("invoice").value.trim());
+  setText("printDate", document.getElementById("date").value);
 
-document.getElementById("date").value =
-  new Date().toISOString().split("T")[0];
+  const printItems = document.getElementById("printItems");
+  printItems.replaceChildren();
 
+  document.querySelectorAll("#items .item").forEach(row => {
+    const product = row.querySelector(".product").value.trim() || "Item";
+    const qty = Math.max(0, Number(row.querySelector(".qty").value) || 0);
+    const price = Math.max(0, Number(row.querySelector(".price").value) || 0);
+    const amount = qty * price;
+
+    const tr = document.createElement("tr");
+
+    [product, String(qty), price.toFixed(2) + " " + getCurrency(),
+      amount.toFixed(2) + " " + getCurrency()].forEach(value => {
+      const td = document.createElement("td");
+      td.textContent = value;
+      tr.appendChild(td);
+    });
+
+    printItems.appendChild(tr);
+  });
+
+  setText(
+    "printTotal",
+    "Total: " + getTotal().toFixed(2) + " " + getCurrency()
+  );
+}
+
+document.getElementById("addButton").addEventListener("click", addItem);
+document.getElementById("calculateButton").addEventListener("click", calculate);
+
+itemsContainer.addEventListener("input", calculate);
+currencySelect.addEventListener("change", calculate);
+
+document.getElementById("downloadButton").addEventListener("click", () => {
+  preparePrint();
+  statusElement.textContent = "Choose Save as PDF in the print options.";
+  window.print();
+});
+
+function setToday() {
+  const now = new Date();
+  const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  document.getElementById("date").value = localDate.toISOString().slice(0, 10);
+}
+
+setToday();
+calculate();
 </script>
 
 </body>
