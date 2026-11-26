@@ -2,864 +2,530 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Free PDF Editor Online | RAVILOOP PDF Studio</title>
-<meta name="description" content="Open and annotate PDF files online for free. Add text, draw, highlight, sign, preview and download edited PDFs with RAVILOOP PDF Studio.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free PDF Editor Online | RAVILOOP</title>
+<meta name="description" content="Edit PDF files online for free. Add text, draw, highlight and sign PDF documents with RAVILOOP PDF Editor.">
 <link rel="canonical" href="https://esakhab.github.io/raviloop/pdf-editor.html">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1220;color:#edf2ff;font-family:Arial,sans-serif}
+header{text-align:center;padding:25px 15px;background:#111d33}
+header h1{margin:0;color:#62d6ff;font-size:28px}
+header p{color:#b9c8dc}
+main{max-width:950px;margin:25px auto;padding:15px}
+.panel{background:#15233a;padding:18px;border-radius:14px;margin-bottom:16px}
+input,button,select{font:inherit}
+input[type=file]{width:100%;padding:14px;background:#0b1629;color:white;border:1px dashed #62d6ff;border-radius:10px}
+.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}
+button,select{border:0;border-radius:8px;padding:11px 14px;background:#263c5c;color:white}
+button{cursor:pointer}
+button.active{background:#087da9}
+button:disabled{opacity:.45;cursor:not-allowed}
+#download{background:#087f59}
+#status{color:#9ce9ff;min-height:24px;margin-top:12px}
+#workspace{display:none}
+#pageArea{position:relative;margin:15px auto;background:white;width:100%;max-width:750px;overflow:hidden;touch-action:none}
+#pdfCanvas{display:block;width:100%;height:auto}
+#editCanvas{position:absolute;top:0;left:0;width:100%;height:100%;touch-action:none}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.controls label{font-size:14px;color:#c7d5e8}
+input[type=color]{width:42px;height:36px;border:0;background:transparent}
+input[type=range]{max-width:140px}
+.note{color:#aabbd2;font-size:13px;line-height:1.6}
+footer{text-align:center;color:#8fa4bf;padding:25px}
+a{color:#62d6ff}
+</style>
+</head>
+<body>
+<header>
+<h1>RAVILOOP PDF Studio</h1>
+<p>Edit, annotate and sign your PDF files online</p>
+</header>
 
-<meta name="theme-color" content="#080d1b">
+<main>
+<section class="panel">
+<h2>Open Your PDF</h2>
+<input id="pdfFile" type="file" accept=".pdf,application/pdf">
+<p class="note">Choose a PDF file from your device. Maximum file size: 30 MB.</p>
+<div id="status" role="status">Ready. Select a PDF to begin.</div>
+</section>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-DXG33MPZF6');
-</script>
+<section id="workspace" class="panel">
+<div class="controls">
+<button id="prev">Previous</button>
+<span id="pageInfo">Page 1 of 1</span>
+<button id="next">Next</button>
+<label>Zoom
+<input id="zoom" type="range" min="60" max="180" value="100">
+<span id="zoomValue">100%</span>
+</label>
+</div>
+
+<div class="toolbar">
+<button data-tool="text" class="tool">Add Text</button>
+<button data-tool="draw" class="tool">Draw</button>
+<button data-tool="highlight" class="tool">Highlight</button>
+<button data-tool="signature" class="tool">Signature</button>
+<button id="undo">Undo</button>
+<button id="clear">Clear Page</button>
+</div>
+
+<div class="controls">
+<label>Ink color <input id="color" type="color" value="#e53935"></label>
+<label>Text size
+<select id="textSize">
+<option value="16">Small</option>
+<option value="22" selected>Medium</option>
+<option value="30">Large</option>
+</select>
+</label>
+</div>
+
+<div id="pageArea">
+<canvas id="pdfCanvas"></canvas>
+<canvas id="editCanvas"></canvas>
+</div>
+
+<button id="download">Download Edited PDF</button>
+<p class="note">Your PDF is processed in your browser. This tool adds annotations; it does not directly rewrite existing PDF text. Highlighting and drawing are saved as annotations.</p>
+</section>
+</main>
+
+<footer>
+<p>© 2026 RAVILOOP · Smart Tools. Infinite Possibilities.</p>
+<a href="index.html">Back to RAVILOOP</a>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
-<style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: #080d1b;
-  color: #f4f7ff;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-}
-
-button, input { font: inherit; }
-
-.header {
-  text-align: center;
-  padding: 22px 15px 10px;
-}
-
-.logo {
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  color: #42a5ff;
-  margin: 0;
-}
-
-.header p { color: #aab6ce; margin: 5px 0; }
-
-.hero {
-  text-align: center;
-  max-width: 760px;
-  margin: 15px auto 25px;
-  padding: 0 16px;
-}
-
-.hero h1 {
-  font-size: 30px;
-  margin: 8px 0;
-}
-
-.hero h1 span { color: #42a5ff; }
-.hero p { color: #aab6ce; }
-
-.studio {
-  max-width: 1150px;
-  margin: auto;
-  padding: 12px;
-}
-
-.panel {
-  background: #111b30;
-  border: 1px solid #263957;
-  border-radius: 16px;
-  padding: 17px;
-  margin-bottom: 15px;
-}
-
-.upload-area {
-  border: 2px dashed #36577e;
-  border-radius: 13px;
-  padding: 28px 15px;
-  text-align: center;
-  background: #0b1427;
-}
-
-.upload-area h2 { color: #42a5ff; margin: 5px 0; }
-.upload-area p { color: #aab6ce; }
-
-input[type=file] { display: none; }
-
-.btn {
-  display: inline-block;
-  background: #1685ff;
-  color: white;
-  border: 0;
-  border-radius: 9px;
-  padding: 10px 15px;
-  margin: 3px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.btn:hover { background: #006bd6; }
-.btn.secondary { background: #263957; }
-.btn.secondary:hover { background: #354e70; }
-.btn.danger { background: #a83448; }
-.btn.active {
-  background: #075bb8;
-  outline: 2px solid #75bdff;
-}
-.btn:disabled {
-  opacity: .45;
-  cursor: not-allowed;
-}
-
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-}
-
-.toolbar label {
-  color: #c5d4ea;
-  font-size: 13px;
-}
-
-.toolbar input[type=color] {
-  width: 42px;
-  height: 38px;
-  padding: 3px;
-  background: #080d1b;
-  border: 1px solid #36577e;
-  border-radius: 7px;
-}
-
-.toolbar input[type=number] {
-  width: 68px;
-  padding: 8px;
-  color: white;
-  background: #080d1b;
-  border: 1px solid #36577e;
-  border-radius: 7px;
-}
-
-.toolbar input[type=range] { width: 100px; }
-
-#textInput {
-  width: 100%;
-  padding: 12px;
-  color: white;
-  background: #080d1b;
-  border: 1px solid #36577e;
-  border-radius: 8px;
-  margin-top: 8px;
-}
-
-.status {
-  color: #aab6ce;
-  text-align: center;
-  min-height: 25px;
-  font-size: 14px;
-  margin: 10px 0 0;
-  overflow-wrap: anywhere;
-}
-
-.status.error { color: #ff9292; }
-.status.success { color: #7ee0ad; }
-
-.small {
-  font-size: 12px;
-  color: #8fa3c3;
-}
-
-.tool-help {
-  color: #91a6c7;
-  font-size: 13px;
-  text-align: center;
-}
-
-.workspace {
-  background: #070b15;
-  border: 1px solid #263957;
-  border-radius: 12px;
-  min-height: 260px;
-  padding: 12px;
-  overflow: auto;
-  text-align: center;
-}
-
-.page-wrap {
-  position: relative;
-  display: inline-block;
-  background: white;
-  line-height: 0;
-  max-width: 100%;
-  box-shadow: 0 5px 30px #0008;
-}
-
-#pdfCanvas {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-#editCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  touch-action: none;
-  cursor: crosshair;
-}
-
-.page-controls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 13px;
-}
-
-.page-controls span {
-  color: #c5d4ea;
-  font-size: 14px;
-}
-
-#editorArea { display: none; }
-#editorArea.visible { display: block; }
-
-#textControls {
-  display: none;
-  margin-top: 12px;
-}
-
-.content {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 22px;
-  background: #111b30;
-  border: 1px solid #263957;
-  border-radius: 14px;
-}
-
-.content h2 { color: #42a5ff; }
-.content p, .content li { color: #aab6ce; }
-
-.footer {
-  text-align: center;
-  padding: 22px;
-  color: #aab6ce;
-}
-
-.footer a {
-  color: #42a5ff;
-  margin: 0 7px;
-  text-decoration: none;
-}
-
-@media(max-width:600px) {
-  .studio { padding: 8px; }
-  .panel { padding: 11px; }
-  .hero h1 { font-size: 25px; }
-  .btn { padding: 10px 11px; font-size: 13px; }
-  .workspace { padding: 6px; }
-}
-</style>
-</head>
-
-<body>
-
-<header class="header">
-  <p class="logo">RAVILOOP</p>
-  <p>Smart Tools. Infinite Possibilities.</p>
-</header>
-
-<section class="hero">
-  <h1>PDF <span>STUDIO</span></h1>
-  <p>
-    Your online PDF workspace. Add text, draw, highlight and sign
-    your documents. Preview and download your edited PDF.
-  </p>
-</section>
-
-<main class="studio">
-
-<section class="panel">
-  <div class="upload-area">
-    <h2>📄 Open Your PDF</h2>
-    <p>Select a PDF document from your device.</p>
-
-    <label for="pdfFile" class="btn">Choose PDF File</label>
-    <input
-      type="file"
-      id="pdfFile"
-      accept=".pdf,application/pdf"
-    >
-
-    <p class="small">PDF files only. Maximum file size: 30 MB.</p>
-  </div>
-
-  <p id="status" class="status" aria-live="polite">
-    Your PDF Studio is ready. Upload a PDF to begin.
-  </p>
-</section>
-
-<section id="editorArea">
-
-  <section class="panel">
-    <h3>✏️ Editing Tools</h3>
-
-    <div class="toolbar">
-      <button class="btn secondary tool active" data-tool="none">Select</button>
-      <button class="btn secondary tool" data-tool="text">Add Text</button>
-      <button class="btn secondary tool" data-tool="draw">Draw</button>
-      <button class="btn secondary tool" data-tool="highlight">Highlight</button>
-      <button class="btn secondary tool" data-tool="signature">Signature</button>
-    </div>
-
-    <div class="toolbar" style="margin-top:12px">
-      <label for="inkColor">Color</label>
-      <input type="color" id="inkColor" value="#1677e8">
-
-      <label for="inkSize">Size</label>
-      <input type="number" id="inkSize" min="1" max="80" value="22">
-
-      <label for="zoom">Zoom</label>
-      <input type="range" id="zoom" min="60" max="160" value="100">
-      <span id="zoomLabel" class="small">100%</span>
-    </div>
-
-    <div id="textControls">
-      <label for="textInput">Text to add</label>
-      <input type="text" id="textInput" placeholder="Type your text here">
-      <p class="tool-help">Choose Add Text, then tap the place where text should appear.</p>
-    </div>
-
-    <p id="toolHelp" class="tool-help">
-      Select a tool to start editing your PDF.
-    </p>
-
-    <div class="toolbar">
-      <button class="btn secondary" id="undoButton">Undo Last Edit</button>
-      <button class="btn secondary" id="clearButton">Clear Page Edits</button>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h3>📑 Document Preview</h3>
-
-    <div class="workspace" id="workspace">
-      <div class="page-wrap">
-        <canvas id="pdfCanvas"></canvas>
-        <canvas id="editCanvas"></canvas>
-      </div>
-    </div>
-
-    <div class="page-controls">
-      <button class="btn secondary" id="prevPage">← Previous</button>
-      <span id="pageInfo">Page 0 / 0</span>
-      <button class="btn secondary" id="nextPage">Next →</button>
-    </div>
-
-    <p class="tool-help">
-      Use your finger on mobile or mouse on desktop to draw and sign.
-    </p>
-  </section>
-
-  <section class="panel">
-    <h3>💾 Save Your Work</h3>
-    <p class="small">
-      Your original PDF stays unchanged. Download creates a new edited copy.
-    </p>
-
-    <div class="toolbar">
-      <button class="btn" id="downloadButton">Download Edited PDF</button>
-    </div>
-  </section>
-
-</section>
-</main>
-
-<section class="content">
-  <h2>What Is RAVILOOP PDF Studio?</h2>
-  <p>
-    A browser-based PDF annotation tool. Open a PDF, add text,
-    draw, highlight important areas and create a signature.
-  </p>
-
-  <h2>How to Edit a PDF Online</h2>
-  <ol>
-    <li>Upload your PDF document.</li>
-    <li>Choose Add Text, Draw, Highlight or Signature.</li>
-    <li>Tap or draw on the PDF preview.</li>
-    <li>Use Undo to remove your last edit.</li>
-    <li>Download your edited PDF.</li>
-  </ol>
-
-  <h2>Privacy</h2>
-  <p>
-    This tool processes the selected PDF in your browser.
-    External PDF libraries are loaded from their CDNs.
-    Avoid using public devices for confidential documents.
-  </p>
-
-  <h2>Frequently Asked Questions</h2>
-
-  <details>
-    <summary>Can I add text to a PDF?</summary>
-    <p>Yes. Choose Add Text, type your text and tap the desired location.</p>
-  </details>
-
-  <details>
-    <summary>Can I sign a PDF?</summary>
-    <p>Yes. Choose Signature and draw using your finger or mouse.</p>
-  </details>
-
-  <details>
-    <summary>Can I highlight a PDF?</summary>
-    <p>Yes. Select Highlight and drag across the area you want to highlight.</p>
-  </details>
-
-  <details>
-    <summary>Does this replace my original PDF?</summary>
-    <p>No. Your original file remains unchanged.</p>
-  </details>
-
-  <h2>Explore More Free Tools</h2>
-  <ul>
-    <li><a href="pdf-tools.html">PDF Merger</a></li>
-    <li><a href="pdf-splitter.html">PDF Splitter</a></li>
-    <li><a href="pdf-compressor.html">PDF Compressor</a></li>
-    <li><a href="invoice-maker.html">Invoice Maker</a></li>
-    <li><a href="cv-maker.html">CV Maker</a></li>
-    <li><a href="word-counter.html">Word Counter</a></li>
-    <li><a href="qr-generator.html">QR Code Generator</a></li>
-  </ul>
-</section>
-
-<footer class="footer">
-  <p>© 2026 RAVILOOP. Free Online Tools.</p>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-  <a href="privacy.html">Privacy</a>
-  <a href="terms.html">Terms</a>
-</footer>
-
 <script>
-(function() {
+(function(){
 "use strict";
 
 const fileInput = document.getElementById("pdfFile");
-const statusText = document.getElementById("status");
-const editorArea = document.getElementById("editorArea");
+const workspace = document.getElementById("workspace");
+const statusBox = document.getElementById("status");
 const pdfCanvas = document.getElementById("pdfCanvas");
 const editCanvas = document.getElementById("editCanvas");
 const pdfCtx = pdfCanvas.getContext("2d");
 const editCtx = editCanvas.getContext("2d");
 
 let pdfDocument = null;
-let originalPdfBytes = null;
+let originalBytes = null;
 let currentPage = 1;
 let totalPages = 0;
-let zoomFactor = 1;
-let currentTool = "none";
-let annotations = {};
+let zoom = 1;
+let activeTool = "draw";
 let drawing = false;
+let startPoint = null;
 let currentStroke = null;
-let highlightStart = null;
-let renderVersion = 0;
-let renderTask = null;
+let annotations = {};
 
-const toolMessages = {
-  none: "Select a tool to start editing.",
-  text: "Type your text, then tap where you want to place it.",
-  draw: "Draw freely using your finger or mouse.",
-  highlight: "Drag across the area you want to highlight.",
-  signature: "Draw your signature using your finger or mouse."
-};
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-function setStatus(message, type) {
-  statusText.textContent = message;
-  statusText.className = "status" + (type ? " " + type : "");
+function status(message){
+  statusBox.textContent = message;
 }
 
-function getPageAnnotations(page) {
-  if (!annotations[page]) annotations[page] = [];
+function pageItems(page){
+  if(!annotations[page]) annotations[page] = [];
   return annotations[page];
 }
 
-function librariesReady() {
-  return !!(
-    window.pdfjsLib &&
-    window.PDFLib &&
-    window.pdfjsLib.getDocument
-  );
+function position(event){
+  const rect = editCanvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) / rect.width,
+    y: (event.clientY - rect.top) / rect.height
+  };
 }
 
-/* Configure PDF.js worker */
-if (window.pdfjsLib) {
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-}
+function drawAnnotations(){
+  editCtx.clearRect(0,0,editCanvas.width,editCanvas.height);
 
-/* Upload PDF */
-fileInput.addEventListener("change", async function() {
-  const file = fileInput.files && fileInput.files[0];
+  const items = pageItems(currentPage);
 
-  if (!file) return;
+  items.forEach(item=>{
+    const color = item.color;
 
-  if (!file.name.toLowerCase().endsWith(".pdf")) {
-    setStatus("Please select a PDF file.", "error");
-    fileInput.value = "";
-    return;
-  }
-
-  if (file.size > 30 * 1024 * 1024) {
-    setStatus("File is too large. Maximum size is 30 MB.", "error");
-    fileInput.value = "";
-    return;
-  }
-
-  if (!librariesReady()) {
-    setStatus("PDF libraries did not load. Check your internet and refresh the page.", "error");
-    return;
-  }
-
-  try {
-    setStatus("Opening your PDF. Please wait...");
-
-    const bytes = new Uint8Array(await file.arrayBuffer());
-
-    const loadingTask = pdfjsLib.getDocument({
-      data: bytes.slice()
-    });
-
-    const loadedDocument = await loadingTask.promise;
-
-    pdfDocument = loadedDocument;
-    originalPdfBytes = bytes.slice();
-
-    totalPages = pdfDocument.numPages;
-    currentPage = 1;
-    annotations = {};
-    zoomFactor = 1;
-
-    document.getElementById("zoom").value = 100;
-    document.getElementById("zoomLabel").textContent = "100%";
-
-    editorArea.classList.add("visible");
-
-    await renderPage();
-
-    setStatus("PDF opened successfully. Choose an editing tool.", "success");
-
-    editorArea.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  } catch (error) {
-    console.error("PDF upload error:", error);
-    pdfDocument = null;
-    originalPdfBytes = null;
-    editorArea.classList.remove("visible");
-
-    let message = "Could not open this PDF.";
-
-    if (error && error.name === "PasswordException") {
-      message = "This PDF is password protected. Please choose an unlocked PDF.";
-    } else if (error && error.name === "InvalidPDFException") {
-      message = "This file does not appear to be a valid PDF.";
-    } else if (error && error.name === "MissingPDFException") {
-      message = "The PDF file could not be read. Please select it again.";
+    if(item.type === "text"){
+      editCtx.fillStyle = color;
+      editCtx.font = item.size + "px Arial";
+      editCtx.fillText(
+        item.text,
+        item.x * editCanvas.width,
+        item.y * editCanvas.height
+      );
     }
 
-    setStatus(message, "error");
-  }
-});
+    if(item.type === "highlight"){
+      editCtx.fillStyle = color;
+      editCtx.globalAlpha = 0.35;
+      editCtx.fillRect(
+        item.x * editCanvas.width,
+        item.y * editCanvas.height,
+        item.w * editCanvas.width,
+        item.h * editCanvas.height
+      );
+      editCtx.globalAlpha = 1;
+    }
 
-/* Render selected page */
-async function renderPage() {
-  if (!pdfDocument) return;
+    if(item.type === "draw" || item.type === "signature"){
+      if(!item.points.length) return;
+      editCtx.beginPath();
+      editCtx.strokeStyle = color;
+      editCtx.lineWidth = item.size * editCanvas.width;
+      editCtx.lineCap = "round";
+      editCtx.lineJoin = "round";
+      editCtx.moveTo(
+        item.points[0].x * editCanvas.width,
+        item.points[0].y * editCanvas.height
+      );
 
-  const version = ++renderVersion;
+      item.points.slice(1).forEach(point=>{
+        editCtx.lineTo(
+          point.x * editCanvas.width,
+          point.y * editCanvas.height
+        );
+      });
 
-  if (renderTask) {
-    try {
-      renderTask.cancel();
-    } catch (e) {}
-    renderTask = null;
-  }
+      editCtx.stroke();
+    }
+  });
+}
 
-  try {
+async function renderPage(){
+  if(!pdfDocument) return;
+
+  status("Rendering page...");
+
+  try{
     const page = await pdfDocument.getPage(currentPage);
+    const viewport = page.getViewport({scale:1.5 * zoom});
 
-    if (version !== renderVersion) return;
+    pdfCanvas.width = viewport.width;
+    pdfCanvas.height = viewport.height;
+    editCanvas.width = viewport.width;
+    editCanvas.height = viewport.height;
 
-    const baseViewport = page.getViewport({ scale: 1 });
-
-    const workspaceWidth =
-      document.getElementById("workspace").clientWidth || 320;
-
-    const availableWidth = Math.min(
-      900,
-      Math.max(240, workspaceWidth - 30)
-    );
-
-    const fitScale = Math.min(
-      availableWidth / baseViewport.width,
-      1.5
-    );
-
-    const viewport = page.getViewport({
-      scale: fitScale * zoomFactor
-    });
-
-    pdfCanvas.width = Math.ceil(viewport.width);
-    pdfCanvas.height = Math.ceil(viewport.height);
-
-    editCanvas.width = pdfCanvas.width;
-    editCanvas.height = pdfCanvas.height;
-
-    renderTask = page.render({
-      canvasContext: pdfCtx,
-      viewport: viewport
-    });
-
-    await renderTask.promise;
-    renderTask = null;
-
-    if (version !== renderVersion) return;
+    await page.render({
+      canvasContext:pdfCtx,
+      viewport:viewport
+    }).promise;
 
     drawAnnotations();
 
     document.getElementById("pageInfo").textContent =
-      "Page " + currentPage + " / " + totalPages;
+      "Page " + currentPage + " of " + totalPages;
 
-    document.getElementById("prevPage").disabled =
-      currentPage <= 1;
+    document.getElementById("prev").disabled = currentPage <= 1;
+    document.getElementById("next").disabled = currentPage >= totalPages;
 
-    document.getElementById("nextPage").disabled =
-      currentPage >= totalPages;
-
-  } catch (error) {
-    if (error && error.name === "RenderingCancelledException") return;
-
-    console.error("Page rendering error:", error);
-    setStatus("Could not display this PDF page.", "error");
+    status("PDF ready. Choose an editing tool.");
+  }catch(error){
+    console.error(error);
+    status("Could not display this PDF page.");
   }
 }
 
-/* Draw saved annotations on the overlay */
-function drawAnnotations() {
-  editCtx.clearRect(0, 0, editCanvas.width, editCanvas.height);
+fileInput.addEventListener("change",async function(){
+  const file = this.files && this.files[0];
+  if(!file) return;
 
-  const items = getPageAnnotations(currentPage);
-  const width = editCanvas.width;
-  const height = editCanvas.height;
-
-  items.forEach(function(item) {
-    if (item.type === "text") {
-      const fontSize = item.size * height;
-
-      editCtx.fillStyle = item.color;
-      editCtx.font = "bold " + fontSize + "px Arial";
-      editCtx.textBaseline = "top";
-
-      editCtx.fillText(
-        item.text,
-        item.x * width,
-        item.y * height
-      );
-    }
-
-    if (item.type === "highlight") {
-      editCtx.save();
-      editCtx.fillStyle = item.color;
-      editCtx.globalAlpha = 0.35;
-
-      editCtx.fillRect(
-        item.x * width,
-        item.y * height,
-        item.w * width,
-        item.h * height
-      );
-
-      editCtx.restore();
-    }
-
-    if (item.type === "draw" || item.type === "signature") {
-      drawStroke(item, width, height);
-    }
-  });
-}
-
-function drawStroke(stroke, width, height) {
-  if (!stroke.points || !stroke.points.length) return;
-
-  editCtx.save();
-  editCtx.beginPath();
-  editCtx.strokeStyle = stroke.color;
-  editCtx.lineWidth = stroke.size * width;
-  editCtx.lineCap = "round";
-  editCtx.lineJoin = "round";
-
-  editCtx.moveTo(
-    stroke.points[0].x * width,
-    stroke.points[0].y * height
-  );
-
-  stroke.points.forEach(function(point) {
-    editCtx.lineTo(
-      point.x * width,
-      point.y * height
-    );
-  });
-
-  if (stroke.points.length === 1) {
-    editCtx.lineTo(
-      stroke.points[0].x * width + 0.1,
-      stroke.points[0].y * height + 0.1
-    );
+  if(file.size > 30 * 1024 * 1024){
+    status("File is too large. Maximum size is 30 MB.");
+    return;
   }
 
-  editCtx.stroke();
-  editCtx.restore();
-}
+  if(file.type !== "application/pdf" &&
+     !file.name.toLowerCase().endsWith(".pdf")){
+    status("Please select a PDF file.");
+    return;
+  }
 
-/* Select editing tool */
-function setTool(tool) {
-  currentTool = tool;
+  try{
+    status("Opening your PDF...");
 
-  document.querySelectorAll(".tool").forEach(function(button) {
-    button.classList.toggle(
-      "active",
-      button.dataset.tool === tool
+    originalBytes = await file.arrayBuffer();
+
+    const loadingTask = pdfjsLib.getDocument({
+      data:new Uint8Array(originalBytes.slice(0))
+    });
+
+    pdfDocument = await loadingTask.promise;
+    totalPages = pdfDocument.numPages;
+    currentPage = 1;
+    annotations = {};
+
+    workspace.style.display = "block";
+    await renderPage();
+
+  }catch(error){
+    console.error(error);
+    pdfDocument = null;
+    originalBytes = null;
+    workspace.style.display = "none";
+    status("PDF could not be opened. Try another PDF file.");
+  }
+});
+
+document.querySelectorAll(".tool").forEach(button=>{
+  button.addEventListener("click",()=>{
+    activeTool = button.dataset.tool;
+
+    document.querySelectorAll(".tool").forEach(item=>{
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    status(
+      activeTool === "text" ? "Tap the PDF to place text." :
+      activeTool === "highlight" ? "Drag over an area to highlight." :
+      activeTool === "signature" ? "Draw your signature on the PDF." :
+      "Draw on the PDF with your finger or mouse."
     );
-  });
-
-  document.getElementById("textControls").style.display =
-    tool === "text" ? "block" : "none";
-
-  document.getElementById("toolHelp").textContent =
-    toolMessages[tool] || "";
-
-  editCanvas.style.cursor =
-    tool === "none" ? "default" : "crosshair";
-}
-
-document.querySelectorAll(".tool").forEach(function(button) {
-  button.addEventListener("click", function() {
-    setTool(button.dataset.tool);
   });
 });
 
-/* Get touch or mouse position as normalized coordinates */
-function getPosition(event) {
-  const rect = editCanvas.getBoundingClientRect();
-
-  return {
-    x: Math.max(0, Math.min(
-      1,
-      (event.clientX - rect.left) / rect.width
-    )),
-    y: Math.max(0, Math.min(
-      1,
-      (event.clientY - rect.top) / rect.height
-    ))
-  };
-}
-
-/* Start an edit */
-editCanvas.addEventListener("pointerdown", function(event) {
-  if (!pdfDocument || currentTool === "none") return;
+editCanvas.addEventListener("pointerdown",event=>{
+  if(!pdfDocument) return;
 
   event.preventDefault();
+  editCanvas.setPointerCapture(event.pointerId);
 
-  try {
-    editCanvas.setPointerCapture(event.pointerId);
-  } catch (e) {}
+  const point = position(event);
 
-  const point = getPosition(event);
-  const color = document.getElementById("inkColor").value;
-
-  const sizeValue = Math.max(
-    1,
-    Math.min(
-      80,
-      Number(document.getElementById("inkSize").value) || 22
-    )
-  );
-
-  if (currentTool === "text") {
-    const text = document.getElementById("textInput").value.trim();
-
-    if (!text) {
-      setStatus("Please type your text first.", "error");
-      return;
+  if(activeTool === "text"){
+    const value = prompt("Enter the text to add:");
+    if(value && value.trim()){
+      pageItems(currentPage).push({
+        type:"text",
+        text:value.trim(),
+        x:point.x,
+        y:point.y,
+        color:document.getElementById("color").value,
+        size:Number(document.getElementById("textSize").value)
+      });
+      drawAnnotations();
+      status("Text added.");
     }
-
-    getPageAnnotations(currentPage).push({
-      type: "text",
-      text: text,
-      x: point.x,
-      y: point.y,
-      color: color,
-      size: sizeValue / editCanvas.height
-    });
-
-    drawAnnotations();
-    setStatus("Text added to page " + currentPage + ".", "success");
     return;
   }
 
   drawing = true;
+  startPoint = point;
 
-  if (currentTool === "draw" || currentTool === "signature") {
-    currentStroke = {
-      type: currentTool,
-      color: color,
-      size: sizeValue / editCanvas.width,
-      points: [point]
-    };
-
-    getPageAnnotations(currentPage).push(currentStroke);
+  if(activeTool === "highlight"){
+    return;
   }
 
-  if (currentTool === "highlight") {
-    highlightStart = point;
-  }
+  currentStroke = {
+    type:activeTool,
+    color:document.getElementById("color").value,
+    size:activeTool === "signature" ? 0.004 : 0.003,
+    points:[point]
+  };
+
+  pageItems(currentPage).push(currentStroke);
+  drawAnnotations();
 });
 
-/* Continue drawing */
-editCanvas.addEventListener("pointermove", function(event) {
-  if (!drawing) return;
-
+editCanvas.addEventListener("pointermove",event=>{
+  if(!drawing) return;
   event.preventDefault();
 
-  const point = getPosition(event);
+  const point = position(event);
 
-  if (currentStroke) {
+  if(activeTool === "highlight"){
+    drawAnnotations();
+    editCtx.fillStyle = document.getElementById("color").value;
+    editCtx.globalAlpha = 0.35;
+
+    const x = Math.min(startPoint.x,point.x);
+    const y = Math.min(startPoint.y,point.y);
+    const w = Math.abs(point.x-startPoint.x);
+    const h = Math.abs(point.y-startPoint.y);
+
+    editCtx.fillRect(
+      x * editCanvas.width,
+      y * editCanvas.height,
+      w * editCanvas.width,
+      h * editCanvas.height
+    );
+    editCtx.globalAlpha = 1;
+    return;
+  }
+
+  if(currentStroke){
     currentStroke.points.push(point);
     drawAnnotations();
   }
+});
 
-  if (highlightStart) {
-    drawAnnotations();
+function finishDrawing(event){
+  if(!drawing) return;
 
-    const width = editCanvas.width;
-    const height = editCanvas.height;
+  const point = position(event);
 
-    const x = Math.min(highlightStart.x, point.x);
-    const y = Math.min(highlightStart.y, point.y);
-    const w = Math.abs(point.x - highlightStart.x);
-    const h = Math.abs(point.y - highlightStart.y);
+  if(activeTool === "highlight"){
+    const x = Math.min(startPoint.x,point.x);
+    const y = Math.min(startPoint.y,point.y);
+    const w = Math.abs(point.x-startPoint.x);
+    const h = Math.abs(point.y-startPoint.y);
 
-    
+    if(w > 0.003 && h > 0.003){
+      pageItems(currentPage).push({
+        type:"highlight",
+        x:x,y:y,w:w,h:h,
+        color:document.getElementById("color").value
+      });
+    }
+  }
+
+  drawing = false;
+  currentStroke = null;
+  startPoint = null;
+  drawAnnotations();
+}
+
+editCanvas.addEventListener("pointerup",finishDrawing);
+editCanvas.addEventListener("pointercancel",finishDrawing);
+
+document.getElementById("prev").addEventListener("click",async()=>{
+  if(currentPage > 1){
+    currentPage--;
+    await renderPage();
+  }
+});
+
+document.getElementById("next").addEventListener("click",async()=>{
+  if(currentPage < totalPages){
+    currentPage++;
+    await renderPage();
+  }
+});
+
+document.getElementById("zoom").addEventListener("input",async function(){
+  zoom = Number(this.value)/100;
+  document.getElementById("zoomValue").textContent = this.value+"%";
+  await renderPage();
+});
+
+document.getElementById("undo").addEventListener("click",()=>{
+  const items = pageItems(currentPage);
+  items.pop();
+  drawAnnotations();
+  status("Last edit undone.");
+});
+
+document.getElementById("clear").addEventListener("click",()=>{
+  annotations[currentPage] = [];
+  drawAnnotations();
+  status("This page's edits have been cleared.");
+});
+
+function hexToRgb(hex){
+  const value = hex.replace("#","");
+  return {
+    r:parseInt(value.slice(0,2),16)/255,
+    g:parseInt(value.slice(2,4),16)/255,
+    b:parseInt(value.slice(4,6),16)/255
+  };
+}
+
+document.getElementById("download").addEventListener("click",async function(){
+  if(!originalBytes || !window.PDFLib){
+    status("Please open a PDF first.");
+    return;
+  }
+
+  this.disabled = true;
+  status("Preparing your edited PDF...");
+
+  try{
+    const pdfDoc = await PDFLib.PDFDocument.load(originalBytes);
+    const pages = pdfDoc.getPages();
+    const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+
+    for(let i=0;i<pages.length;i++){
+      const page = pages[i];
+      const pageWidth = page.getWidth();
+      const pageHeight = page.getHeight();
+      const items = annotations[i+1] || [];
+
+      for(const item of items){
+        const rgb = hexToRgb(item.color);
+        const color = PDFLib.rgb(rgb.r,rgb.g,rgb.b);
+
+        if(item.type === "text"){
+          page.drawText(item.text,{
+            x:item.x*pageWidth,
+            y:pageHeight-item.y*pageHeight-item.size,
+            size:item.size,
+            font:font,
+            color:color
+          });
+        }
+
+        if(item.type === "highlight"){
+          page.drawRectangle({
+            x:item.x*pageWidth,
+            y:pageHeight-(item.y+item.h)*pageHeight,
+            width:item.w*pageWidth,
+            height:item.h*pageHeight,
+            color:color,
+            opacity:0.35,
+            borderWidth:0
+          });
+        }
+
+        if(item.type === "draw" || item.type === "signature"){
+          const points = item.points;
+
+          for(let j=1;j<points.length;j++){
+            page.drawLine({
+              start:{
+                x:points[j-1].x*pageWidth,
+                y:pageHeight-points[j-1].y*pageHeight
+              },
+              end:{
+                x:points[j].x*pageWidth,
+                y:pageHeight-points[j].y*pageHeight
+              },
+              thickness:Math.max(1,item.size*pageWidth),
+              color:color
+            });
+          }
+        }
+      }
+    }
+
+    const savedBytes = await pdfDoc.save();
+    const blob = new Blob([savedBytes],{type:"application/pdf"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "raviloop-edited.pdf";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(()=>URL.revokeObjectURL(url),3000);
+    status("Your edited PDF has been downloaded.");
+
+  }catch(error){
+    console.error(error);
+    status("Could not save this PDF. Try another PDF file.");
+  }finally{
+    this.disabled = false;
+  }
+});
+
+})();
+</script>
+</body>
+</html>
