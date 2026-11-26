@@ -1,15 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Free QR Code Generator Online - Create & Download QR Codes | RAVILOOP</title>
-<meta name="description" content="Create and download QR codes online for free with RAVILOOP. Turn website links, text and other information into QR codes quickly and easily.">
+<title>Free QR Code Generator Online - WiFi, WhatsApp & Contact QR | RAVILOOP</title>
+<meta name="description" content="Create free custom QR codes online with RAVILOOP. Generate website, text, WiFi, WhatsApp and contact QR codes. Customize colors, choose size and download PNG instantly.">
+<meta name="keywords" content="free QR code generator, WiFi QR code, WhatsApp QR code, contact QR code, custom QR code, online QR maker">
 
 <link rel="canonical" href="https://esakhab.github.io/raviloop/qr-generator.html">
 
-<!-- Google Analytics -->
+<meta property="og:title" content="Free QR Code Generator | RAVILOOP">
+<meta property="og:description" content="Create custom website, WiFi, WhatsApp and contact QR codes for free.">
+<meta property="og:type" content="website">
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXG33MPZF6"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -19,136 +24,162 @@ gtag('config', 'G-DXG33MPZF6');
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 18px;
   background: #080d1b;
   color: white;
   font-family: Arial, sans-serif;
   line-height: 1.7;
 }
 
-h1, h2, h3 {
-  color: #42a5ff;
-  line-height: 1.3;
+h1, h2, h3 { color: #42a5ff; line-height: 1.3; }
+p { color: #aab6ce; }
+a { color: #42a5ff; }
+
+.header { text-align: center; padding: 10px; }
+
+.header h1 {
+  font-size: 34px;
+  margin-bottom: 5px;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 30px;
-}
-
-p {
-  color: #aab6ce;
-}
-
-a {
-  color: #42a5ff;
-}
-
-.header {
+.hero {
+  max-width: 750px;
+  margin: 15px auto 25px;
   text-align: center;
 }
+
+.hero h2 { font-size: 26px; }
 
 .container {
-  max-width: 500px;
-  margin: 30px auto;
-  background: #111b30;
+  max-width: 560px;
+  margin: 25px auto;
   padding: 25px;
-  border-radius: 18px;
+  background: #111b30;
   border: 1px solid #263957;
+  border-radius: 18px;
   text-align: center;
 }
 
-input {
+.field {
+  text-align: left;
+  margin: 15px 0;
+}
+
+label {
+  display: block;
+  color: #dce7f8;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+input, select, textarea {
   width: 100%;
-  padding: 14px;
-  border-radius: 10px;
+  padding: 13px;
+  border-radius: 9px;
   border: 1px solid #304263;
   background: #080d1b;
   color: white;
   font-size: 16px;
-  margin-top: 12px;
+  font-family: Arial, sans-serif;
+}
+
+input[type="color"] {
+  height: 48px;
+  padding: 5px;
+  cursor: pointer;
 }
 
 button {
   background: #1685ff;
   color: white;
   border: none;
-  padding: 13px 22px;
+  padding: 13px 20px;
   border-radius: 9px;
-  margin: 15px 5px;
+  margin: 9px 5px;
   font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-button:hover {
-  background: #006bd6;
-}
+button:hover { background: #006bd6; }
 
 button:disabled {
-  opacity: 0.7;
+  opacity: .6;
   cursor: wait;
 }
 
-#qrcode {
-  background: white;
-  padding: 20px;
-  width: fit-content;
-  max-width: 100%;
-  margin: 20px auto;
-  border-radius: 10px;
+.secondary {
+  background: #263957;
 }
 
-#qrcode:empty {
-  display: none;
+.secondary:hover { background: #354d70; }
+
+#qrcode {
+  display: inline-block;
+  background: white;
+  padding: 16px;
+  margin: 20px auto;
+  border-radius: 10px;
+  max-width: 100%;
 }
+
+#qrcode:empty { display: none; }
+
+#qrcode canvas, #qrcode img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#message {
+  min-height: 25px;
+  font-weight: bold;
+}
+
+.hidden { display: none; }
 
 .content {
   max-width: 850px;
-  margin: 40px auto;
+  margin: 35px auto;
   padding: 25px;
   background: #111b30;
   border: 1px solid #263957;
   border-radius: 15px;
 }
 
-.content h2 {
-  margin-top: 30px;
-}
-
-.content h2:first-child {
-  margin-top: 0;
-}
+.content h2 { margin-top: 30px; }
+.content h2:first-child { margin-top: 0; }
 
 .content li {
   color: #aab6ce;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
 }
 
 .faq {
   border-bottom: 1px solid #304263;
-  padding: 15px 0;
+  padding: 14px 0;
 }
 
 .faq summary {
-  color: #ffffff;
+  color: white;
   cursor: pointer;
   font-weight: bold;
 }
 
-.faq p {
-  margin-bottom: 5px;
+.faq p { margin-bottom: 5px; }
+
+.note {
+  font-size: 13px;
+  color: #8fa3c3;
 }
 
 .footer {
   text-align: center;
   margin: 35px auto 10px;
-  color: #aab6ce;
 }
 
 .footer a {
@@ -156,18 +187,11 @@ button:disabled {
   text-decoration: none;
 }
 
-@media (max-width: 600px) {
-  body {
-    padding: 12px;
-  }
-
-  .container, .content {
-    padding: 18px;
-  }
-
-  h1 {
-    font-size: 27px;
-  }
+@media(max-width:600px) {
+  body { padding: 10px; }
+  .container, .content { padding: 17px; }
+  .header h1 { font-size: 29px; }
+  .hero h2 { font-size: 23px; }
 }
 </style>
 </head>
@@ -176,134 +200,255 @@ button:disabled {
 
 <header class="header">
   <h1>RAVILOOP</h1>
-  <p>Free QR Code Generator</p>
+  <p>Free Online QR Code Generator</p>
 </header>
 
 <main>
 
+<section class="hero">
+  <h2>Create Your Own QR Code in Seconds</h2>
+  <p>
+    Make free QR codes for websites, WiFi, WhatsApp and contact details.
+    Customize your colors and download your QR code as a PNG image.
+  </p>
+</section>
+
 <section class="container">
-  <h2>Create Your QR Code</h2>
 
-  <p>Enter a website URL, text or other information below.</p>
+  <h2>QR Code Maker</h2>
+  <p>Choose a QR code type and enter your information.</p>
 
-  <input
-    id="text"
-    type="text"
-    placeholder="Enter text or website URL"
-    aria-label="Text or website URL for QR code"
-  >
+  <div class="field">
+    <label for="qrType">Choose QR Code Type</label>
+    <select id="qrType">
+      <option value="url">Website URL</option>
+      <option value="text">Plain Text</option>
+      <option value="wifi">WiFi Connection</option>
+      <option value="whatsapp">WhatsApp Chat</option>
+      <option value="contact">Contact Card</option>
+    </select>
+  </div>
+
+  <div id="urlFields" class="field-group">
+    <div class="field">
+      <label for="website">Website URL</label>
+      <input id="website" type="url" placeholder="https://example.com">
+    </div>
+  </div>
+
+  <div id="textFields" class="field-group hidden">
+    <div class="field">
+      <label for="plainText">Your Text</label>
+      <textarea id="plainText" rows="4" placeholder="Enter your message"></textarea>
+    </div>
+  </div>
+
+  <div id="wifiFields" class="field-group hidden">
+    <div class="field">
+      <label for="wifiName">WiFi Network Name (SSID)</label>
+      <input id="wifiName" type="text" placeholder="Your WiFi name">
+    </div>
+    <div class="field">
+      <label for="wifiPassword">WiFi Password</label>
+      <input id="wifiPassword" type="text" placeholder="Your WiFi password">
+    </div>
+    <div class="field">
+      <label for="wifiSecurity">Security Type</label>
+      <select id="wifiSecurity">
+        <option value="WPA">WPA / WPA2 / WPA3</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">No Password</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="whatsappFields" class="field-group hidden">
+    <div class="field">
+      <label for="waPhone">WhatsApp Number</label>
+      <input id="waPhone" type="tel" placeholder="Example: 9665XXXXXXXX">
+      <p class="note">Enter country code and number without + or spaces.</p>
+    </div>
+    <div class="field">
+      <label for="waMessage">Pre-filled Message (Optional)</label>
+      <textarea id="waMessage" rows="3" placeholder="Hello! I would like to know more."></textarea>
+    </div>
+  </div>
+
+  <div id="contactFields" class="field-group hidden">
+    <div class="field">
+      <label for="contactName">Full Name</label>
+      <input id="contactName" type="text" placeholder="Your name">
+    </div>
+    <div class="field">
+      <label for="contactPhone">Phone Number</label>
+      <input id="contactPhone" type="tel" placeholder="+966 5XXXXXXXX">
+    </div>
+    <div class="field">
+      <label for="contactEmail">Email Address</label>
+      <input id="contactEmail" type="email" placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label for="contactCompany">Company (Optional)</label>
+      <input id="contactCompany" type="text" placeholder="Company name">
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="darkColor">QR Code Color</label>
+    <input id="darkColor" type="color" value="#000000">
+  </div>
+
+  <div class="field">
+    <label for="lightColor">Background Color</label>
+    <input id="lightColor" type="color" value="#ffffff">
+  </div>
+
+  <div class="field">
+    <label for="qrSize">QR Code Size</label>
+    <select id="qrSize">
+      <option value="200">Small - 200px</option>
+      <option value="260" selected>Medium - 260px</option>
+      <option value="320">Large - 320px</option>
+      <option value="400">Extra Large - 400px</option>
+    </select>
+  </div>
 
   <button id="generateButton" onclick="generateQR()">
-    Generate QR
+    Generate QR Code
   </button>
 
   <div id="qrcode"></div>
 
-  <button id="download" onclick="downloadQR()" hidden>
-    Download QR Code
-  </button>
+  <div>
+    <button id="downloadButton" onclick="downloadQR()" hidden>
+      Download PNG
+    </button>
+    <button class="secondary" onclick="resetQR()">
+      Reset
+    </button>
+  </div>
 
-  <p id="message" aria-live="polite"></p>
+  <p id="message" role="status" aria-live="polite"></p>
+  <p class="note">
+    Tip: Always scan and test your QR code before sharing or printing it.
+  </p>
+
 </section>
 
 <section class="content">
 
   <h2>What Is a QR Code?</h2>
-
   <p>
-    A QR code (Quick Response code) is a type of barcode that stores
-    information such as website links, text and other data. People can
-    scan a QR code using a smartphone camera or a QR code reader to
-    access the stored information.
+    A QR code (Quick Response code) is a type of two-dimensional barcode
+    that stores information such as website links, text, WiFi details
+    and contact information. A smartphone camera can scan it to access
+    the stored information.
   </p>
 
-  <p>
-    QR codes are commonly used by businesses, restaurants, shops,
-    websites and individuals to share information quickly and easily.
-  </p>
+  <h2>What Can You Create With This QR Generator?</h2>
+  <ul>
+    <li><strong>Website QR:</strong> Share your website or online page.</li>
+    <li><strong>Text QR:</strong> Turn a message or simple text into a QR code.</li>
+    <li><strong>WiFi QR:</strong> Let guests connect to your WiFi by scanning.</li>
+    <li><strong>WhatsApp QR:</strong> Open a WhatsApp chat with your number.</li>
+    <li><strong>Contact QR:</strong> Share contact details using a digital contact card.</li>
+  </ul>
 
-  <h2>How to Create a QR Code Online</h2>
-
+  <h2>How to Make a QR Code</h2>
   <ol>
-    <li>Enter your website URL or text in the input box above.</li>
-    <li>Click the Generate QR button.</li>
-    <li>Wait one second while your QR code is generated.</li>
-    <li>Click Download QR Code to save it as a PNG image.</li>
-    <li>Scan the downloaded QR code with a phone to test it.</li>
+    <li>Choose the type of QR code you want to create.</li>
+    <li>Enter the required information.</li>
+    <li>Choose your QR code and background colors.</li>
+    <li>Select the QR code size.</li>
+    <li>Click Generate QR Code.</li>
+    <li>Download the PNG image and test it with your phone.</li>
   </ol>
 
-  <h2>Where Can You Use QR Codes?</h2>
-
+  <h2>Who Can Use QR Codes?</h2>
   <ul>
-    <li><strong>Restaurants:</strong> Share digital menus with customers.</li>
-    <li><strong>Businesses:</strong> Display website links and useful information.</li>
-    <li><strong>Marketing:</strong> Add QR codes to posters and promotional materials.</li>
-    <li><strong>Personal use:</strong> Share links and text with friends.</li>
-    <li><strong>Education:</strong> Share learning resources and website links.</li>
+    <li><strong>Restaurants:</strong> Share menus and WiFi access.</li>
+    <li><strong>Small businesses:</strong> Share contact details and websites.</li>
+    <li><strong>Shops:</strong> Help customers open online product pages.</li>
+    <li><strong>Marketing:</strong> Add QR codes to posters and flyers.</li>
+    <li><strong>Individuals:</strong> Share contact details and messages.</li>
+    <li><strong>Education:</strong> Share learning resources and links.</li>
   </ul>
 
   <h2>Why Use RAVILOOP QR Code Generator?</h2>
-
   <ul>
-    <li>Free online QR code generation.</li>
-    <li>Simple and beginner-friendly interface.</li>
-    <li>Create QR codes from text and website URLs.</li>
-    <li>Download your QR code as a PNG image.</li>
-    <li>No software installation required.</li>
+    <li>Free QR code creation.</li>
+    <li>Five useful QR code types.</li>
+    <li>Custom QR and background colors.</li>
+    <li>Multiple image sizes.</li>
+    <li>Download QR codes as PNG images.</li>
+    <li>Works directly in your browser.</li>
+    <li>No account or software installation required.</li>
   </ul>
 
   <h2>Frequently Asked Questions</h2>
 
   <div class="faq">
     <details>
-      <summary>Is this QR code generator free?</summary>
-      <p>Yes. You can create and download QR codes for free using RAVILOOP.</p>
+      <summary>Is RAVILOOP QR Generator free?</summary>
+      <p>Yes. You can create and download QR codes for free.</p>
     </details>
   </div>
 
   <div class="faq">
     <details>
-      <summary>Can I create a QR code for a website URL?</summary>
-      <p>Yes. Enter your website URL in the input box and click Generate QR.</p>
+      <summary>Can I create a WiFi QR code?</summary>
+      <p>Yes. Enter your WiFi network name and password, select its security type and generate a QR code.</p>
     </details>
   </div>
 
   <div class="faq">
     <details>
-      <summary>How can I download my QR code?</summary>
-      <p>After generating your QR code, click the Download QR Code button to save it as a PNG image.</p>
+      <summary>Can I make a WhatsApp QR code?</summary>
+      <p>Yes. Enter your WhatsApp number with its country code to create a QR code that opens a chat.</p>
     </details>
   </div>
 
   <div class="faq">
     <details>
-      <summary>Can I scan a QR code with my phone?</summary>
-      <p>Yes. Most modern smartphones can scan QR codes using their built-in camera.</p>
+      <summary>Can I customize QR code colors?</summary>
+      <p>Yes. You can choose the QR code color and its background color before generating it.</p>
     </details>
   </div>
 
   <div class="faq">
     <details>
-      <summary>Does this tool require installation?</summary>
-      <p>No. You can use the QR code generator directly in your web browser.</p>
+      <summary>Can I download my QR code?</summary>
+      <p>Yes. Download your generated QR code as a PNG image.</p>
+    </details>
+  </div>
+
+  <div class="faq">
+    <details>
+      <summary>Are QR codes generated here permanent?</summary>
+      <p>These are static QR codes. Their encoded information does not expire by itself, but the website or service they point to may change or stop working.</p>
+    </details>
+  </div>
+
+  <div class="faq">
+    <details>
+      <summary>Is my information uploaded to a server?</summary>
+      <p>QR generation happens in your browser using the QR code library. Avoid entering sensitive passwords or private information into QR codes you plan to share publicly.</p>
     </details>
   </div>
 
   <h2>Explore More Free Online Tools</h2>
-
-  <p>Discover other useful tools available on RAVILOOP:</p>
-
   <ul>
     <li><a href="password-generator.html">Free Password Generator</a></li>
     <li><a href="image-compressor.html">Image Compressor</a></li>
     <li><a href="pdf-tools.html">PDF Tools</a></li>
     <li><a href="pdf-splitter.html">PDF Splitter</a></li>
+    <li><a href="pdf-compressor.html">PDF Compressor</a></li>
     <li><a href="invoice-maker.html">Invoice Maker</a></li>
     <li><a href="cv-maker.html">CV Maker</a></li>
+    <li><a href="word-counter.html">Word Counter</a></li>
   </ul>
 
 </section>
-
 </main>
 
 <footer class="footer">
@@ -318,109 +463,249 @@ button:disabled {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-function generateQR() {
+const qrType = document.getElementById("qrType");
+const message = document.getElementById("message");
+const qrBox = document.getElementById("qrcode");
+const downloadButton = document.getElementById("downloadButton");
+const generateButton = document.getElementById("generateButton");
 
-  const text = document.getElementById("text").value.trim();
-  const qr = document.getElementById("qrcode");
-  const message = document.getElementById("message");
-  const download = document.getElementById("download");
-  const button = document.getElementById("generateButton");
+qrType.addEventListener("change", function() {
+  document.querySelectorAll(".field-group").forEach(function(group) {
+    group.classList.add("hidden");
+  });
 
-  if (text === "") {
-    message.innerText = "Please enter some text!";
-    return;
+  document.getElementById(qrType.value + "Fields").classList.remove("hidden");
+
+  qrBox.innerHTML = "";
+  downloadButton.hidden = true;
+  message.textContent = "";
+});
+
+function escapeWifi(value) {
+  return value.replace(/([\\;,:"])/g, "\\$1");
+}
+
+function escapeVCard(value) {
+  return value
+    .replace(/\\/g, "\\\\")
+    .replace(/\n/g, "\\n")
+    .replace(/,/g, "\\,")
+    .replace(/;/g, "\\;");
+}
+
+function getQRData() {
+  const type = qrType.value;
+
+  if (type === "url") {
+    const value = document.getElementById("website").value.trim();
+
+    if (!value) throw new Error("Please enter a website URL.");
+
+    let parsed;
+    try {
+      parsed = new URL(value);
+    } catch {
+      throw new Error("Please enter a valid website URL.");
+    }
+
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      throw new Error("Please use a website link starting with http:// or https://.");
+    }
+
+    return value;
   }
+
+  if (type === "text") {
+    const value = document.getElementById("plainText").value.trim();
+    if (!value) throw new Error("Please enter some text.");
+    return value;
+  }
+
+  if (type === "wifi") {
+    const name = document.getElementById("wifiName").value;
+    const password = document.getElementById("wifiPassword").value;
+    const security = document.getElementById("wifiSecurity").value;
+
+    if (!name.trim()) throw new Error("Please enter your WiFi network name.");
+
+    if (security !== "nopass" && !password) {
+      throw new Error("Please enter your WiFi password.");
+    }
+
+    return "WIFI:T:" + security +
+      ";S:" + escapeWifi(name) +
+      ";P:" + (security === "nopass" ? "" : escapeWifi(password)) +
+      ";;";
+  }
+
+  if (type === "whatsapp") {
+    const phone = document.getElementById("waPhone").value.trim();
+    const cleanPhone = phone.replace(/[\s()+-]/g, "");
+    const text = document.getElementById("waMessage").value.trim();
+
+    if (!/^\d{7,15}$/.test(cleanPhone)) {
+      throw new Error("Enter a valid WhatsApp number with country code.");
+    }
+
+    return "https://wa.me/" + cleanPhone +
+      (text ? "?text=" + encodeURIComponent(text) : "");
+  }
+
+  if (type === "contact") {
+    const name = document.getElementById("contactName").value.trim();
+    const phone = document.getElementById("contactPhone").value.trim();
+    const email = document.getElementById("contactEmail").value.trim();
+    const company = document.getElementById("contactCompany").value.trim();
+
+    if (!name) throw new Error("Please enter a contact name.");
+    if (!phone && !email) throw new Error("Enter a phone number or email.");
+
+    return [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "FN:" + escapeVCard(name),
+      "N:" + escapeVCard(name),
+      phone ? "TEL:" + escapeVCard(phone) : "",
+      email ? "EMAIL:" + escapeVCard(email) : "",
+      company ? "ORG:" + escapeVCard(company) : "",
+      "END:VCARD"
+    ].filter(Boolean).join("\n");
+  }
+}
+
+function generateQR() {
+  message.textContent = "";
+  qrBox.innerHTML = "";
+  downloadButton.hidden = true;
 
   if (typeof QRCode === "undefined") {
-    message.innerText = "QR library failed to load!";
+    message.textContent = "QR library could not load. Check your internet connection and try again.";
     return;
   }
 
-  qr.innerHTML = "";
-  download.hidden = true;
+  let data;
 
-  button.disabled = true;
-  button.innerText = "Generating...";
-  message.innerText = "Please wait...";
+  try {
+    data = getQRData();
+  } catch (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  const size = Number(document.getElementById("qrSize").value);
+  const dark = document.getElementById("darkColor").value;
+  const light = document.getElementById("lightColor").value;
+
+  if (dark.toLowerCase() === light.toLowerCase()) {
+    message.textContent = "Please choose two different colors.";
+    return;
+  }
+
+  generateButton.disabled = true;
+  generateButton.textContent = "Generating...";
+  message.textContent = "Creating your QR code...";
 
   setTimeout(function() {
-
     try {
-      new QRCode(qr, {
-        text: text,
-        width: 240,
-        height: 240,
+      new QRCode(qrBox, {
+        text: data,
+        width: size,
+        height: size,
+        colorDark: dark,
+        colorLight: light,
         correctLevel: QRCode.CorrectLevel.H
       });
 
-      download.hidden = false;
-      message.innerText = "Your QR code is ready!";
-
+      downloadButton.hidden = false;
+      message.textContent = "Your QR code is ready! Scan it to test before sharing.";
     } catch (error) {
-      message.innerText = "Something went wrong. Please try again.";
+      qrBox.innerHTML = "";
+      message.textContent = "Could not create this QR code. Try shorter information or a smaller amount of text.";
     }
 
-    button.disabled = false;
-    button.innerText = "Generate QR";
-
-  }, 1000);
+    generateButton.disabled = false;
+    generateButton.textContent = "Generate QR Code";
+  }, 150);
 }
 
 function downloadQR() {
+  const sourceCanvas = qrBox.querySelector("canvas");
+  const sourceImage = qrBox.querySelector("img");
 
-  const qr = document.getElementById("qrcode");
-  const message = document.getElementById("message");
-
-  const originalCanvas = qr.querySelector("canvas");
-  const originalImage = qr.querySelector("img");
-
-  if (!originalCanvas && !originalImage) {
-    message.innerText = "Generate QR code first!";
+  if (!sourceCanvas && !sourceImage) {
+    message.textContent = "Generate a QR code first.";
     return;
   }
 
-  const canvas = document.createElement("canvas");
-  canvas.width = 320;
-  canvas.height = 320;
+  const output = document.createElement("canvas");
+  const size = 1000;
+  const margin = 60;
 
-  const ctx = canvas.getContext("2d");
+  output.width = size;
+  output.height = size;
 
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, 320, 320);
+  const ctx = output.getContext("2d");
+  const background = document.getElementById("lightColor").value;
 
-  function saveQR() {
+  ctx.fillStyle = background;
+  ctx.fillRect(0, 0, size, size);
+
+  function saveImage(source) {
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(source, margin, margin, size - margin * 2, size - margin * 2);
+
     const link = document.createElement("a");
-    link.download = "raviloop-qr.png";
-    link.href = canvas.toDataURL("image/png");
+    link.download = "raviloop-qr-code.png";
+    link.href = output.toDataURL("image/png");
     link.click();
 
-    message.innerText = "QR downloaded successfully!";
+    message.textContent = "QR code downloaded! Remember to test it.";
   }
 
-  if (originalCanvas) {
-    ctx.drawImage(originalCanvas, 40, 40, 240, 240);
-    saveQR();
-
-  } else if (originalImage.complete) {
-    ctx.drawImage(originalImage, 40, 40, 240, 240);
-    saveQR();
-
+  if (sourceCanvas) {
+    saveImage(sourceCanvas);
+  } else if (sourceImage.complete && sourceImage.naturalWidth > 0) {
+    saveImage(sourceImage);
   } else {
-    originalImage.onload = function() {
-      ctx.drawImage(originalImage, 40, 40, 240, 240);
-      saveQR();
+    sourceImage.onload = function() {
+      saveImage(sourceImage);
     };
 
-    originalImage.onerror = function() {
-      message.innerText = "Could not download QR code. Please try again.";
+    sourceImage.onerror = function() {
+      message.textContent = "Could not download the QR code. Please generate it again.";
     };
   }
 }
 
-document.getElementById("text").addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    generateQR();
-  }
+function resetQR() {
+  document.querySelectorAll("input:not([type=color]), textarea").forEach(function(field) {
+    field.value = "";
+  });
+
+  document.getElementById("darkColor").value = "#000000";
+  document.getElementById("lightColor").value = "#ffffff";
+  document.getElementById("qrSize").value = "260";
+  document.getElementById("wifiSecurity").value = "WPA";
+  qrType.value = "url";
+
+  document.querySelectorAll(".field-group").forEach(function(group) {
+    group.classList.add("hidden");
+  });
+
+  document.getElementById("urlFields").classList.remove("hidden");
+
+  qrBox.innerHTML = "";
+  downloadButton.hidden = true;
+  message.textContent = "Form reset. Create a new QR code!";
+}
+
+document.querySelectorAll("input, textarea").forEach(function(field) {
+  field.addEventListener("input", function() {
+    if (!qrBox.innerHTML) return;
+    qrBox.innerHTML = "";
+    downloadButton.hidden = true;
+    message.textContent = "Your information changed. Generate a new QR code.";
+  });
 });
 </script>
 
